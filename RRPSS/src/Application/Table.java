@@ -29,7 +29,8 @@ public class Table implements Serializable {
 	@Override
 	public String toString(){
 		//TODO
-		return "table" +this.tableID;
+		return "table "+this.tableID + "|" + this.seatCapacity + " seats|"
+				+ status;
 	}
 	
 	@Override

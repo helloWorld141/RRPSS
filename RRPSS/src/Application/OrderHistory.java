@@ -4,17 +4,15 @@ import java.io.*;
 import java.time.*;
 import java.util.ArrayList;
 
+import Helper.IOHandler;
+
 public class OrderHistory {
 	private ArrayList<Order> ordersList;
 	private ObjectInputStream in;
 	private ObjectOutputStream out;
 	
 	OrderHistory() throws IOException{
-		FileInputStream fi = new FileInputStream("OrderHistory.db");
-		BufferedInputStream bi = new BufferedInputStream(fi);
-		in = new ObjectInputStream(bi);
-		//TODO read into ordersList
-		in.close();
+		ordersList = (ArrayList)IOHandler.readSerializedObject("OdersHistory.db");
 		
 		FileOutputStream fo = new FileOutputStream("OrderHistory.db");
 		BufferedOutputStream bo = new BufferedOutputStream(fo);

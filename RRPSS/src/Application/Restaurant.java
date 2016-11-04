@@ -1,7 +1,9 @@
 package Application;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.*;
-
+import Helper.*;
 public class Restaurant {
 	private ArrayList<Table> tableList;
 	private ArrayList<Staff> staffList;
@@ -9,9 +11,11 @@ public class Restaurant {
 	private Menu menu;
 	
 	Restaurant() throws IOException{
-		//TODO load tables from file db
+		ArrayList<Table> tbList = new ArrayList<Table>();
+		tbList = (ArrayList)IOHandler.readSerializedObject("Tables.db");
+		System.out.println(tbList);
 		//TODO load staff from file db
-		orderHistory = new OrderHistory();
+		//orderHistory = new OrderHistory();
 		
 	}
 	
@@ -49,4 +53,6 @@ public class Restaurant {
 				break;
 			};
 	}
+	
+	
 }

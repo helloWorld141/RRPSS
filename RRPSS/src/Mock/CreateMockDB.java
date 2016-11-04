@@ -1,19 +1,21 @@
 package Mock;
 import java.io.*;
 import java.util.*;
-
+import Helper.*;
 import Application.*;
 
 public class CreateMockDB {
 	public static void main (String[] args){
-		ArrayList<Table> tbList= new ArrayList<Table>();
-		createTables(tbList);
+		ArrayList<Table> tbList = new ArrayList<Table>();
+		ArrayList<Staff> stList = new ArrayList<Staff>();
+		createMockTables(tbList);
 		//System.out.println(tbList);
 		List list = (ArrayList) tbList;
-		writeSerializedObject("Tables.db", list);
+		IOHandler.writeSerializedObject("Tables.db", list);
 		
 	}
-	public static void createTables(ArrayList<Table> tbList){
+	
+	public static void createMockTables(ArrayList<Table> tbList){
 		int i =0;
 		for (;i<5; i++){
 			tbList.add(new Table(i, 10));
@@ -29,17 +31,10 @@ public class CreateMockDB {
 		}
 	}
 	
-	public static void writeSerializedObject(String filename, List list) {
-		FileOutputStream fos = null;
-		ObjectOutputStream out = null;
-		try {
-			fos = new FileOutputStream(filename);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(list);
-			out.close();
-		//	System.out.println("Object Persisted");
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+	public static void createMockStaff(){
+		
+		
 	}
+	
+	
 }
