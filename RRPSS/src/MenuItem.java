@@ -5,6 +5,8 @@ public class MenuItem {
 	private String description;
 	private String type;
 	
+	MenuItem(){};
+	
 	MenuItem(double price, String name, String description, String type){
 		this.price = price;
 		this.name = name;
@@ -25,7 +27,8 @@ public class MenuItem {
 	}
 	
 	public void setName(String name){
-		this.name = name;
+		StringBuilder sb = new StringBuilder(description);
+		this.name = sb.toString();
 	}
 	
 	public String getDescription(){
@@ -33,7 +36,8 @@ public class MenuItem {
 	}
 	
 	public void setDescription(String description){
-		this.description = description;
+		StringBuilder sb = new StringBuilder(description);
+		this.description = sb.toString();
 	}
 	
 	public String getType(){
