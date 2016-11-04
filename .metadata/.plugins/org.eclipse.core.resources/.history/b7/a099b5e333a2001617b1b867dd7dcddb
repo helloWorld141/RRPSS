@@ -1,0 +1,7 @@
+
+public class Restaurant {
+	private ArrayList<Table> tableList;
+	private ArrayList<Staff> staffList;
+	
+	public showAvailableTable()
+}

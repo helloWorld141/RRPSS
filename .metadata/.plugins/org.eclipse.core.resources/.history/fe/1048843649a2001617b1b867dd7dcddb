@@ -1,0 +1,31 @@
+//For the purpose of managing orders history and revenue report
+import java.io.*;
+import java.util.ArrayList;
+
+public class OrderHistory {
+	private ArrayList<Order> ordersList;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	
+	OrderHistory() throws IOException{
+		FileInputStream fi = new FileInputStream("OrderHistory");
+		BufferedInputStream bi = new BufferedInputStream(fi);
+		in = new ObjectInputStream(bi);
+		//TODO read into ordersList
+		
+		FileOutputStream fo = new FileOutputStream("OrderHistory");
+		BufferedOutputStream bo = new BufferedOutputStream(fo);
+		out = new ObjectOutputStream(bo);
+		
+		//TODO
+		//read file into ordersList
+	}
+	
+	public void addOder(Order order ){
+		ordersList.add(order);
+	}
+	
+	public void show(){
+		
+	}
+}

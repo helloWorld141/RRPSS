@@ -1,0 +1,16 @@
+//For the purpose of managing orders history and revenue report
+import java.util.ArrayList;
+
+public class OrderHistory {
+	private ArrayList<Order> ordersList;
+	private FileWriter fw;
+	
+	
+	public void addOder(Order order ){
+		ordersList.add(order);
+	}
+	
+	public void show(){
+		
+	}
+}

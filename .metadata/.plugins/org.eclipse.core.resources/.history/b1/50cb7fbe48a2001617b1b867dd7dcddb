@@ -1,0 +1,22 @@
+//For the purpose of managing orders history and revenue report
+import java.io.*;
+import java.util.ArrayList;
+
+public class OrderHistory {
+	private ArrayList<Order> ordersList;
+	private ObjectInputStream in;
+	private ObjectOutputStream out;
+	
+	OrderHistory() throws FileNotFoundException{
+		FileInputStream fi = new FileInputStream("OrderHistory");
+		
+	}
+	
+	public void addOder(Order order ){
+		ordersList.add(order);
+	}
+	
+	public void show(){
+		
+	}
+}

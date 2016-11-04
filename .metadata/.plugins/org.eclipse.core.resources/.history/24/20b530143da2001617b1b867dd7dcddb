@@ -1,0 +1,4 @@
+
+public class OrderHistory {
+	private ArrayList<Order> ordersList
+}

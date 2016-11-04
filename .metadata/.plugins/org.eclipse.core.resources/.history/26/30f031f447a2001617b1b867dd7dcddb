@@ -1,0 +1,15 @@
+//For the purpose of managing orders history and 
+import java.util.ArrayList;
+
+public class OrderHistory {
+	private ArrayList<Order> ordersList;
+	private 
+	
+	public void addOder(Order order ){
+		ordersList.add(order);
+	}
+	
+	public void show(){
+		
+	}
+}
