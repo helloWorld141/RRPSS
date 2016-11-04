@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+
+public class PromotionalPackage {
+	private double PackagePrice;
+	private ArrayList<MenuItem> ItemList;
+	private String PackageName;
+	
+	public PromotionalPackage(double PackagePrice, ArrayList<MenuItem> ItemLitst, String PackageName){
+		this.PackagePrice = PackagePrice;
+		this.ItemList = ItemLitst;
+		this.PackageName = PackageName;
+	}
+	
+	public double getPackagePrice(){
+		//TODO
+		return 0;
+	}
+	public void setPackagePrice(double packagePrice){
+		//TODO
+	}
+	public ArrayList<MenuItem> getitemList(){
+		//TODO
+		return (new ArrayList<MenuItem>());
+	}
+	public String getPackageName(){
+		
+	}
+}

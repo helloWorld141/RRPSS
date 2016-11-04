@@ -1,0 +1,7 @@
+
+public class RestaurantApp {
+	private double PackagePrice;
+	private ArrayList<MenuItem> ItemList;
+	private String PackageName;
+	
+}

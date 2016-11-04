@@ -1,0 +1,5 @@
+
+public class MenuItem {
+	private double price;
+	private String name;
+}

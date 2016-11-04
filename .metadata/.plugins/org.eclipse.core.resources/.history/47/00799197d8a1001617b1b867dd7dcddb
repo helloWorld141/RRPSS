@@ -1,0 +1,7 @@
+
+public class Table {
+	private int tableID;
+	private String status;
+	private int seatCapacity;
+	Table
+}

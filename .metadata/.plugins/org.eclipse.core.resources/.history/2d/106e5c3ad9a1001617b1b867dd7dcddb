@@ -1,0 +1,11 @@
+
+public class Staff {
+	private String name;
+	private String gender;
+	private int staffID;
+	private String role;
+	{
+		
+	}
+	Staff(String name, String gender, int staffID, String role)
+}

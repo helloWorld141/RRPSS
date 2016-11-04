@@ -1,0 +1,11 @@
+import java.util.ArrayList;
+
+public class PromotionalPackage {
+	private double PackagePrice;
+	private ArrayList<MenuItem> ItemList;
+	private String PackageName;
+	
+	public PromotionalPackage(){
+		
+	}
+}

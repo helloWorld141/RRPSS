@@ -1,0 +1,7 @@
+
+public class Order {
+	private int orderID;
+	private int staffID;
+	private int tableID;
+	
+}

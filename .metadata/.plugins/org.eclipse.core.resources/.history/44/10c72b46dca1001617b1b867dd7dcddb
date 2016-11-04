@@ -1,0 +1,6 @@
+import java.util.ArrayList;
+
+public class RestaurantApp {
+	MenuItem test = new MenuItem(100, "hello", "fuck you", "test");
+	System.Out.println(test.getName());
+}

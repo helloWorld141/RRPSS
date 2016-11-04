@@ -1,0 +1,6 @@
+
+public class RestaurantApp {
+	private double PackagePrice;
+	
+	
+}

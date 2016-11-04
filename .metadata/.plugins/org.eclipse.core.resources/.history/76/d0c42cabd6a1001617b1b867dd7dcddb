@@ -1,0 +1,4 @@
+
+public class MenuItem {
+	private double price;
+}
