@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class Restaurant {
+	private ArrayList<Table> tableList;
+	private ArrayList<Staff> staffList;
+	
+	Restaurant(){
+		//TODO load tables from file db
+		//TODO load staff from file db
+	}
+	
+	public void showAvailableTables(){
+		ListIterator<Table> i = tableList.listIterator(); 
+		while (i.hasNext()){
+			Table table = i.next();
+			if (table.getStatus().equals(TableStatus.available))
+				System.out.println(table);
+		}
+			
+	}
+	
+	public void addTable(int numberOfSeat){
+		int newID = tableList.size();
+		tableList.add(new Table(tableList.size(), ));
+	}
+	
+	public void removeTable(int tableID){
+		//TODO
+	}
+	
+	public void addStaff(Staff newStaff){
+		//TODO
+	}
+	
+	public void removeStaff(int StaffID){
+		//TODO
+	}
+}

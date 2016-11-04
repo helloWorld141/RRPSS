@@ -9,13 +9,13 @@ public class OrderHistory {
 	private ObjectOutputStream out;
 	
 	OrderHistory() throws IOException{
-		FileInputStream fi = new FileInputStream("OrderHistory");
+		FileInputStream fi = new FileInputStream("OrderHistory.db");
 		BufferedInputStream bi = new BufferedInputStream(fi);
 		in = new ObjectInputStream(bi);
 		//TODO read into ordersList
 		in.close();
 		
-		FileOutputStream fo = new FileOutputStream("OrderHistory");
+		FileOutputStream fo = new FileOutputStream("OrderHistory.db");
 		BufferedOutputStream bo = new BufferedOutputStream(fo);
 		out = new ObjectOutputStream(bo);
 		
@@ -27,16 +27,20 @@ public class OrderHistory {
 	}
 	
 	public void printRevenueReport(Month month){
-		//TODO
+		//TODO filter orders in OrderList by its month and print to the screen
+		// use Order.forInvoice()
 	}
 	
 	public void printRevenueReport(LocalDate date){
-		//TODO
+		//TODO filter orders in OrderList by its date and print to the screen
+		// use Order.forInvoice()
 	}
 	
 	@Override
 	public String toString(){
-		//TODO
+		String result = new String();
+		for (Order order : ordersList)
+			result.concat(order.info());
 		return toString();
 	}
 	

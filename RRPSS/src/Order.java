@@ -5,6 +5,7 @@ public class Order {
 	private int orderID;
 	private int staffID;
 	private int tableID;
+	private int totalPrice;
 	private LocalDateTime timeStamp;
 	private ArrayList<MenuItem> menuItemsOrder;
 	private ArrayList<PromotionalPackage> promotionalPackageOrder;
@@ -33,10 +34,19 @@ public class Order {
 		this.promotionalPackageOrder.add(toAdd);
 	}
 	
+	public String forInvoice(){
+		//TODO
+		return new String();
+	}
+	public String info(){
+		//TODO
+		return "\n";
+	}
+	
 	@Override
 	public String toString(){
 		//TODO
-		// what to print in order
+		// what to print in orderInvoice
 		return this.toString();
 	}
 	
