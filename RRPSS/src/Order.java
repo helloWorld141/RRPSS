@@ -40,7 +40,7 @@ public class Order {
 		return this.toString();
 	}
 	
-	public void showOrder(){
+	public void printOrderInvoice(){
 		System.out.println(this);
 	}
 }
