@@ -1,11 +1,12 @@
 package Application;
+import java.io.Serializable;
 import java.util.Objects;
-public class Table {
+public class Table implements Serializable {
 	private int tableID;
 	private TableStatus status;
 	private int seatCapacity;
 	
-	Table(int ID, int seatCapacity){
+	public Table(int ID, int seatCapacity){
 		this(ID, TableStatus.available, seatCapacity);
 	}
 	Table(int ID, TableStatus status, int seatCapacity){
@@ -28,7 +29,7 @@ public class Table {
 	@Override
 	public String toString(){
 		//TODO
-		return toString();
+		return "table" +this.tableID;
 	}
 	
 	@Override

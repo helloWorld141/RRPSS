@@ -1,19 +1,31 @@
 package Application;
-import java.util.ArrayList;
+import java.util.*;
+import java.io.*;
 
 public class RestaurantApp {
 	public static void main (String[] args){
-		MenuItem test = new MenuItem(100, "hello", "fuck you", "test");
-		System.out.println(test.getName());
-		
-		MenuItem test2 = test;
-		test2.setName("hi");
-		System.out.println(test.getName());
-		
-		ArrayList<Integer> hi = new ArrayList<Integer>();
-		for (int i =0; i< 10; i++) hi.add(i);
-		System.out.println(hi.get(5));
-		hi.remove(5);
-		System.out.println(hi.get(5));
+		ArrayList<Table> tbList = new ArrayList<Table>();
+		tbList = (ArrayList)readSerializedObject("Tables.db");
+		System.out.println(tbList);
+	}
+	
+	public static List readSerializedObject(String filename) {
+		List pDetails = null;
+		FileInputStream fis = null;
+		ObjectInputStream in = null;
+		try {
+			fis = new FileInputStream(filename);
+			in = new ObjectInputStream(fis);
+			pDetails = (ArrayList) in.readObject();
+			in.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+		// print out the size
+		//System.out.println(" Details Size: " + pDetails.size());
+		//System.out.println();
+		return pDetails;
 	}
 }
