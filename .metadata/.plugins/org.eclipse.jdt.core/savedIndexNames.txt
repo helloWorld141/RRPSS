@@ -7,7 +7,6 @@ INDEX VERSION 1.129+C:\Users\Nghia Nguyen\OneDrive\CS\Year 2 sem 1\CZ2002 OOP\As
 1280305850.index
 69682449.index
 1995363533.index
-3859878596.index
 455560408.index
 1728642882.index
 3082400079.index
