@@ -1,18 +1,35 @@
 package Application;
-
-public class MenuItem {
-	private double price;
+import java.io.*;
+import java.util.*;
+import Application.CourseType;
+public class MenuItem implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String ID;
+	private CourseType type;
 	private String name;
 	private String description;
-	private String type;
+	private double price;	
 	
 	MenuItem(){};
 	
-	MenuItem(double price, String name, String description, String type){
+	MenuItem(String ID, CourseType type, String name, String description, double price){
+		this.ID = ID;
 		this.price = price;
 		this.name = name;
 		this.description = description;
 		this.type = type;
+	}
+	
+	public String getID(){
+		return this.ID;
+	}
+	
+	public void setID(String id){
+		StringBuilder sb = new StringBuilder(id);
+		this.ID = sb.toString();
 	}
 	
 	public double getPrice(){
@@ -28,7 +45,7 @@ public class MenuItem {
 	}
 	
 	public void setName(String name){
-		StringBuilder sb = new StringBuilder(description);
+		StringBuilder sb = new StringBuilder(name);
 		this.name = sb.toString();
 	}
 	
@@ -41,7 +58,7 @@ public class MenuItem {
 		this.description = sb.toString();
 	}
 	
-	public String getType(){
+	public CourseType getType(){
 		return this.type;
 	}
 }

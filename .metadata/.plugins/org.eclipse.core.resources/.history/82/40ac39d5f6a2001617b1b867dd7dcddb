@@ -1,0 +1,24 @@
+public class Shape3DApp {
+	public static void main (String[] arg){
+		Surface figure1 = new Surface();
+		figure1.addComponent(new Sphere((float)10));
+		for (int i=0;i<4;i++){
+			figure1.addComponent(new Triangle(25,20));
+			figure1.addComponent(new Rectangle(50,20));
+		}
+		figure1.addComponent(new Square((float)20));
+		
+		Surface figure2 = new Surface(); 
+		figure2.addComponent(new Sphere((float)10));
+		figure2.addComponent(new Cone(25, 10));
+		figure2.addComponent(new Cylinder(50, 10));
+		figure2.addComponent(new Circle((float)10));
+		
+		System.out.println("Surface area of the first figure: " + figure1.getArea());
+		System.out.println("Surface area of the second figure: " + figure2.getArea());
+		
+		System.out.println("test");
+		Triangle tri = new Triangle(1,2);
+		Shape sh = tri;
+	}
+}

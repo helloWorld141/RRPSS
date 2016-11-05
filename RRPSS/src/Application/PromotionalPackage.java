@@ -6,10 +6,16 @@ public class PromotionalPackage {
 	private ArrayList<MenuItem> itemList;
 	private String packageName;
 	
-	public PromotionalPackage(double packagePrice, ArrayList<MenuItem> itemLitst, String packageName){
+	public PromotionalPackage(String packageName, double packagePrice, ArrayList<MenuItem> itemLitst){
 		this.packagePrice = packagePrice;
 		this.itemList = itemLitst;
 		this.packageName = packageName;
+	}
+	
+	public PromotionalPackage(String name, double price){
+		this.packagePrice = price;
+		this.packageName = name;
+		this.itemList = new ArrayList<MenuItem>();
 	}
 	
 	public double getPackagePrice(){
@@ -27,5 +33,15 @@ public class PromotionalPackage {
 	public void setPackageName(String packageName){
 		StringBuilder sb = new StringBuilder(packageName);
 		this.packageName = sb.toString();
+	}
+	
+	public void addItem(MenuItem item){
+		itemList.add(item);
+	}
+	public void removeItem(String itemID){
+		for (int i=0;i<itemList.size(); i++){
+			if (itemList.get(i).getID().equals(itemID))
+				itemList.remove(i);
+		}
 	}
 }

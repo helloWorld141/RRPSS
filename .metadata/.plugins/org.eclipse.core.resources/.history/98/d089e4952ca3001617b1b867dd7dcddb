@@ -1,0 +1,68 @@
+package Application;
+import java.util.*;
+import java.io.*;
+
+public class Menu implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<PromotionalPackage> promotionalPackageList;
+	private static TreeMap<String, ArrayList<MenuItem>> menuItemList;
+	/*
+	private ArrayList<MenuItem> mainCourse;
+	private ArrayList<MenuItem> drinks;
+	private ArrayList<MenuItem> desserts;
+	*/
+	Menu(){}
+	public void createItem(int type, String name, String description, double price){
+		CourseType courseType = CourseType.values()[type-1];
+		String ID = courseType.toString();
+		ID.concat(String.valueOf(menuItemList.get(type).size()));
+		menuItemList.get(courseType.toString()).add(new MenuItem(ID , courseType, name, description, price));
+	}
+	public void updateItemName(String ID, String newName){
+		int type = ID.charAt(0);
+		String key = CourseType.values()[type-1];
+		for(int i=0;i<)
+	}
+	public void updatePrice(String type, int itemNo, String newPrice){
+		//TODO
+	}
+	
+	public void updateDescription(String type, int itemNo, String newDesription){
+		//TODO
+	}
+	public void removeMenuItem(String type, int iemNo){
+		//TODO
+	}
+	
+	public void createPromotionalPackage(){
+		//TODO
+	}
+	
+	public void removePromotionalPackage(int packageNo){
+		//TODO
+	}
+	
+	public void updatePackageName(int packageNo, String newName){
+		//TODO
+	}
+	
+	public void updatePackagePrice(int packageNo, String newPrice){
+		//TODO
+	}
+	
+	public void addItemToPackage(int packageNo, MenuItem newItem, double newPrice){
+		//TODO
+	}
+	
+	public void removeItemFromPackage(int packageNo, int itemNo, double newPrice){
+		//TODO
+	}
+	
+	public MenuItem getMenuItem(String type, int itemNo){
+		//TODO
+		return new MenuItem();
+	}
+}
