@@ -15,12 +15,7 @@ public class Menu implements Serializable{
 	private ArrayList<MenuItem> desserts;
 	*/
 	Menu(){}
-	public void createItem(int type, String name, String description, double price){
-		CourseType courseType = CourseType.values()[type-1];
-		String ID = courseType.toString();
-		ID.concat(String.valueOf(menuItemList.get(type).size()));
-		menuItemList.get(courseType.toString()).add(new MenuItem(ID , courseType, name, description, price));
-	}
+	
 	public void updateItemName(String ID, String newName){
 		int type = ID.charAt(0);
 		String courseType = CourseType.values()[type-1].toString();
@@ -41,7 +36,6 @@ public class Menu implements Serializable{
 			}
 		}
 	}
-	
 	public void updateItemDescription(String ID, String newDescription){
 		int type = ID.charAt(0);
 		String courseType = CourseType.values()[type-1].toString();
@@ -51,6 +45,13 @@ public class Menu implements Serializable{
 				break;
 			}
 		}
+	}
+	
+	public void createMenuItem(int type, String name, String description, double price){
+		CourseType courseType = CourseType.values()[type-1];
+		String ID = courseType.toString();
+		ID.concat(String.valueOf(menuItemList.get(type).size()));
+		menuItemList.get(courseType.toString()).add(new MenuItem(ID , courseType, name, description, price));
 	}
 	public void removeMenuItem(String ID){
 		int type = ID.charAt(0);
@@ -72,7 +73,6 @@ public class Menu implements Serializable{
 	public void createPromotionalPackage(String name, double price){
 		promotionalPackageList.add(new PromotionalPackage(name, price));
 	}
-	
 	public void removePromotionalPackage(int packageNo){
 		promotionalPackageList.remove(packageNo);
 	}
@@ -80,7 +80,6 @@ public class Menu implements Serializable{
 	public void updatePackageName(int packageNo, String newName){
 		promotionalPackageList.get(packageNo).setPackageName(newName);
 	}
-	
 	public void updatePackagePrice(int packageNo, double newPrice){
 		promotionalPackageList.get(packageNo).setPackagePrice(newPrice);
 	}
@@ -95,18 +94,20 @@ public class Menu implements Serializable{
 			}
 		}
 	}
-	public void addItemsToPackage(int packageNo, ArrayList<String> itemIDs){
+	public void addItemsToPackage(int packageNo, ArrayList<String> itemIDs, double newPrice){
 		for (int i=0; i<itemIDs.size(); i++){
 			addItemToPackage(packageNo, itemIDs.get(i));
 		}
+		updatePackagePrice(packageNo, newPrice);
 	}
 	public void removeItemFromPackage(int packageNo, String itemID){
 		promotionalPackageList.get(packageNo).removeItem(itemID);
 	}
-	public void removeItemsFromPackage(int packageNo, ArrayList<String> itemIDs){
+	public void removeItemsFromPackage(int packageNo, ArrayList<String> itemIDs, double newPrice){
 		for (int i=0; i<itemIDs.size(); i++){
 			removeItemFromPackage(packageNo, itemIDs.get(i));
 		}
+		updatePackagePrice(packageNo, newPrice);
 	}
 	
 	public MenuItem getMenuItem(String itemID){
@@ -121,5 +122,14 @@ public class Menu implements Serializable{
 	}
 	public PromotionalPackage getPackage(int packageNo){
 		return promotionalPackageList.get(packageNo);
+	}
+
+	public void viewMenuItem(){
+		//TODO
+		//format output to show all MenuItems in Menu
+	}
+	public void viewPackages(){
+		//TODO
+		//print out all packages in the current menu
 	}
 }

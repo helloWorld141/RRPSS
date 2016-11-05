@@ -1,0 +1,23 @@
+package Application;
+import java.util.*;
+import java.io.*;
+
+public class RestaurantApp {
+	public static void main (String[] args) throws IOException{
+		final Restaurant myRestaurant = new Restaurant();
+		Scanner sc = new Scanner(System.in);
+		while
+		
+	}
+	
+	public static void prompt(){
+		System.out.println("What would you like to perform:"
+				+ "(1) Modify Menu"
+				+ "(2) Create new order"
+				+ "(3) View order"
+				+ "(4) Print order invoice"
+				+ "(5) Print total revenue"
+				+ "(10) Exit");
+		
+	}
+}

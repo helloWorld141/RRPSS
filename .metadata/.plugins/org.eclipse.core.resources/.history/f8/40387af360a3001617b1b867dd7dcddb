@@ -1,0 +1,115 @@
+package Application;
+import java.util.*;
+import java.io.*;
+
+public class RestaurantApp {
+	public static void main (String[] args) throws IOException{
+		final Restaurant myRestaurant = new Restaurant();
+		Scanner sc = new Scanner(System.in);
+		while (prompt()){
+			int opt = sc.nextInt();
+			switch (opt){
+			case 1:
+				modifyMenu(sc, myRestaurant);
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 10:
+				return;
+			}
+		}
+		
+	}
+	
+	public static boolean prompt(){
+		System.out.println("What would you like to perform:"
+				+ "\n(1) Modify Menu"
+				+ "\n(2) Create new order"
+				+ "\n(3) View order"
+				+ "\n(4) Print order invoice"
+				+ "\n(5) Print total revenue"
+				+ "\n(10) Exit");
+		return true;
+	}
+	
+	public static void modifyMenu(Scanner sc, Restaurant myRestaurant){
+		int opt = 0;
+		while (opt != 5){
+			System.out.println("\nModify Menu:"
+					+ "\n(1) Modify a la carte item"
+					+ "\n(2) Add/Remove a la carte item"
+					+ "\n(3) Modify package"
+					+ "\n(4) Add/Remove package"
+					+ "\n(5) Back");
+			opt = sc.nextInt();
+			switch (opt){
+			case 1: //Modify a la carte item
+				while (myRestaurant.updateMenuItem(sc));
+				break;
+			case 2: //Add/remove ala carte items
+				int action = 0;
+				while (action != 3){
+					System.out.println("Choose an action: "
+							+ "\n(1) Add"
+							+ "\n(2) Remove"
+							+ "\n(3) Back");
+					action = sc.nextInt();
+					switch (action){
+					case 1:
+						while(myRestaurant.createMenuItem(sc)!=4);
+						break;
+					case 2:
+						while(!myRestaurant.removeMenuItem(sc).equals("-1"));
+						break;
+					case 3:
+						break;
+					default:
+						System.out.println("Invalid choice!!!");
+					}
+				}	
+				break;
+			case 3://modify package
+				action =0;
+				while(action != 3){
+					System.out.println("Choose an action:"
+							+ "\n(1) Change package name"
+							+ "\n(2) Change package price"
+							+ "\n(3) back");
+					if (action ==3) break;
+					if (action !=1 && action != 2) {
+						System.out.println("Invalid choice!!!");
+						break;
+					}
+					action = sc.nextInt();
+					System.out.println("Enter package id:");
+					int id = sc.nextInt();
+					if (action == 1)
+						System.out.println("Enter new name");
+					else
+						System.out.println("Enter new price");
+					String newVal = sc.nextLine();
+					myRestaurant.updatePromoPack(action, id, newVal);
+				}
+				break;
+			case 4: // add/remove package
+				System.out.println("Choose an action:"
+						+ "\n(1) Add item"
+						+ "\n(2) Remove item"
+						+ "\n(3) Back");
+				action = sc.nectInt();
+				break;
+			case 5: return;
+			default:
+				System.out.println("Invalid choice!!!");
+			}
+		}
+	}
+	
+	
+}

@@ -1,0 +1,15 @@
+package Application;
+import java.util.*;
+import java.io.*;
+
+public class RestaurantApp  throws IOException{
+	private static 		Restaurant myRestaurant = new Restaurant();
+	public static void main (String[] args){
+
+		
+	}
+	
+	public static void prompt(){
+		System.out.println("");
+	}
+}
