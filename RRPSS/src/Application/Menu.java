@@ -71,10 +71,14 @@ public class Menu implements Serializable{
 	}
 	
 	public void createPromotionalPackage(String name, double price){
-		promotionalPackageList.add(new PromotionalPackage(name, price));
+		int id = promotionalPackageList.size();
+		promotionalPackageList.add(new PromotionalPackage(id, name, price));
 	}
 	public void removePromotionalPackage(int packageNo){
 		promotionalPackageList.remove(packageNo);
+		for (int i=packageNo; i<promotionalPackageList.size(); i++){
+			promotionalPackageList.get(i).setID(i);
+		}
 	}
 	
 	public void updatePackageName(int packageNo, String newName){

@@ -2,22 +2,31 @@ package Application;
 import java.util.ArrayList;
 
 public class PromotionalPackage {
+	private Integer ID;
 	private double packagePrice;
 	private ArrayList<MenuItem> itemList;
 	private String packageName;
 	
-	public PromotionalPackage(String packageName, double packagePrice, ArrayList<MenuItem> itemLitst){
+	public PromotionalPackage(Integer ID, String packageName, double packagePrice, ArrayList<MenuItem> itemLitst){
+		this.ID = ID;
 		this.packagePrice = packagePrice;
 		this.itemList = itemLitst;
 		this.packageName = packageName;
 	}
 	
-	public PromotionalPackage(String name, double price){
+	public PromotionalPackage(Integer ID, String name, double price){
+		this.ID = ID;
 		this.packagePrice = price;
 		this.packageName = name;
 		this.itemList = new ArrayList<MenuItem>();
 	}
 	
+	public void setID(int id){
+		this.ID = id;
+	}
+	public int getID(){
+		return this.ID;
+	}
 	public double getPackagePrice(){
 		return this.packagePrice;
 	}

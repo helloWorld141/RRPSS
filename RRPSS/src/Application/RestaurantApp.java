@@ -13,14 +13,21 @@ public class RestaurantApp {
 				modifyMenu(sc, myRestaurant);
 				break;
 			case 2:
-				
+				myRestaurant.createNewOrder(sc);
 				break;
 			case 3:
+				myRestaurant.viewOrder(sc);
 				break;
 			case 4:
+				myRestaurant.addToOrder(sc);
 				break;
 			case 5:
+				myRestaurant.removeFromOrder(sc);
 				break;
+			case 6:
+				myRestaurant.printOrderInvoice(sc);
+			case 7:
+				printSaleRevenue(sc, myRestaurant);
 			case 10:
 				return;
 			}
@@ -33,8 +40,10 @@ public class RestaurantApp {
 				+ "\n(1) Modify Menu"
 				+ "\n(2) Create new order"
 				+ "\n(3) View order"
-				+ "\n(4) Print order invoice"
-				+ "\n(5) Print total revenue"
+				+ "\n(4) Add to order"
+				+ "\n(5) Remove from order"
+				+ "\n(6) Print order invoice"
+				+ "\n(7) Print total revenue"
 				+ "\n(10) Exit");
 		return true;
 	}
@@ -139,5 +148,21 @@ public class RestaurantApp {
 		}
 	}
 	
-	
+	public static void printSaleRevenue(Scanner sc, Restaurant myRestaurant){
+		System.out.println("(1) By Date"
+				+ "\n(2) By Month"
+				+ "\n(3) Back");
+		int opt = sc.nextInt();
+		switch(opt){
+		case 1:
+		case 2:
+			myRestaurant.printSaleRevenue(sc, opt);
+			break;
+		case 3:
+			break;
+		default:
+			System.out.println("Invalid choice");
+		}
+		
+	}
 }

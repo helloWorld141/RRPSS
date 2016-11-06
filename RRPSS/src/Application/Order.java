@@ -23,18 +23,40 @@ public class Order {
 	public int getOrderID(){
 		return this.orderID;
 	}
-	public LocalDateTime getTimeStamp(){
+	public LocalDateTime when(){
 		return this.timeStamp;
 	}
 	
-	public void addMenuItemsOrder(MenuItem toAdd){
+	public void addMenuItem(MenuItem toAdd){
 		this.menuItemsOrder.add(toAdd);
 	}
-	
-	public void addPromotionalPackageOrder(PromotionalPackage toAdd){
+	public void addMenuItems(ArrayList<MenuItem> items){
+		for (MenuItem item:items){
+			addMenuItem(item);
+		}
+	}
+	public void addPromotionalPackage(PromotionalPackage toAdd){
 		this.promotionalPackageOrder.add(toAdd);
 	}
-	
+	public void addPromotionalPackges(ArrayList<PromotionalPackage> packages){
+		for (PromotionalPackage packagee:packages){
+			addPromotionalPackage(packagee);
+		}
+	}
+	public void removeItems(ArrayList<String> itemIDs){
+		for(int i =0;i<menuItemsOrder.size();i++){
+			if (itemIDs.contains(menuItemsOrder.get(i).getID())){
+				menuItemsOrder.remove(i);
+			}
+		}
+	}
+	public void removePackages(ArrayList<Integer> packageIDs){
+		for(int i =0;i<promotionalPackageOrder.size();i++){
+			if (packageIDs.contains(promotionalPackageOrder.get(i).getID())){
+				promotionalPackageOrder.remove(i);
+			}
+		}
+	}
 	public String forReport(){
 		//TODO
 		// what to print for each entry in the report

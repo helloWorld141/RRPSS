@@ -3,6 +3,9 @@ package Application;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.time.*;
 import Helper.*;
@@ -161,37 +164,124 @@ public class Restaurant {
 	}
 
 	public void createNewOrder(Scanner sc) {
-		System.out.println("Enter Staff ID:");
+		System.out.println("Enter Staff ID (Enter -1 to cancel order):");
 		int staffID = sc.nextInt();
-		System.out.println("Enter available Table ID");
-		showAvailableTables();
-		int tableID = sc.nextInt();
-		System.out.println("Choose items from a la carte (Enter -1 when you are done):");
+		if (staffID == -1) return;
+		while (staffID <0 || staffID >= staffList.size()){
+			System.out.println("Invalid staff ID. Try again:");
+			staffID = sc.nextInt();
+			if (staffID == -1) return;
+		}
+		int tableID =-1;
+		while (!tableAvail(tableID)){
+			System.out.println("Enter available Table ID (Enter -1 to cancel order)");
+			showAvailableTables();
+			tableID = sc.nextInt();
+			if (tableID == -1) return;
+		}
+		
+		System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
 		Integer itemID;
 		do {
 			itemID = sc.nextInt();
-			if (itemID != -1){
+			if (itemID == -1) return;
+			if (itemID != 0){
 				itemIDs.add(itemID.toString());
 			}
-		} while (itemID != -1);
+		} while (itemID != 0);
+		
+		System.out.println("Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
+		menu.viewMenuItem();
+		ArrayList<Integer> packageIDs = new ArrayList<Integer>();
+		Integer packageID;
+		do {
+			packageID = sc.nextInt();
+			if (packageID == -1) return;
+			if (packageID != 0){
+				packageIDs.add(packageID);
+			}
+		} while (packageID != 0);
+		
+		orderHistory.newOrder(staffID, tableID, itemIDs, packageIDs, menu);
 		
 	}
 
-	public void viewOrder() {
-
+	public void viewOrder(Scanner sc) {
+		System.out.println("What order");
+		orderHistory.show();
+		int orderID = sc.nextInt();
+		orderHistory.viewOrder(orderID);
 	}
 
-	public void addToOrder() {
-
+	public void addToOrder(Scanner sc) {
+		System.out.println("Choose an option:"
+				+ "\n(1) Add items"
+				+ "\n(2) Add packages"
+				+ "\n(3) Back");
+		int opt = 0;
+		while(opt != 3){
+			opt = sc.nextInt();
+			System.out.println("What order?");
+			int orderID = sc.nextInt();
+			switch (opt){
+			case 1:
+				System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
+				menu.viewMenuItem();
+				ArrayList<String> itemIDs = new ArrayList<String>();
+				Integer itemID;
+				do {
+					itemID = sc.nextInt();
+					if (itemID == -1) return;
+					if (itemID != 0){
+						itemIDs.add(itemID.toString());
+					}
+				} while (itemID != 0);
+				orderHistory.addItemsToOrder(orderID, itemIDs, menu);
+				break;
+			case 2:
+				System.out.println("Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
+				menu.viewMenuItem();
+				ArrayList<Integer> packageIDs = new ArrayList<Integer>();
+				Integer packageID;
+				do {
+					packageID = sc.nextInt();
+					if (packageID == -1) return;
+					if (packageID != 0){
+						packageIDs.add(packageID);
+					}
+				} while (packageID != 0);
+				orderHistory.addPackagesToOrder(orderID, packageIDs, menu);
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Invalid choice");
+			}
+		}
 	}
-
-	public void removeFromOrder() {
-
+	public void removeFromOrder(Scanner sc) {
+		System.out.println("What order?");
+		orderHistory.show();
+		int orderID = sc.nextInt();
+		System.out.println("Choose items to remove (-1 when finish):");
+		orderHistory.viewOrder(orderID); //all items in orders are printed according to their postion in order
+		//remove items by using its position in order
+		ArrayList<Integer> pos = new ArrayList<Integer>();
+		int chosen = 0;
+		while(chosen != -1){
+			chosen = sc.nextInt();
+			if (chosen == -1) break;
+			pos.add(chosen-1);
+		}
+		orderHistory.removeFromOrder(orderID, pos);
+		
+				
 	}
 
 	public boolean tableAvail(int tableID) {
+		if (tableID <0 || tableID >=30) return false;
 		for (int i = 0; i < tableList.size(); i++) {
 			if (tableList.get(i).getTableID() == tableID) {
 				return (tableList.get(i).getStatus() == TableStatus.available);
@@ -210,16 +300,35 @@ public class Restaurant {
 
 	}
 
-	public void printOrderInvoice(int orderID) {
-
+	public void printOrderInvoice(Scanner sc) {
+		System.out.println("What order");
+		int orderID = sc.nextInt();
+		orderHistory.printOrderInvoice(orderID);
 	}
 
-	public void printSaleRevenue(Date date) {
-
-	}
-
-	public void printSaleRevenue(Month month) {
-
+	public void printSaleRevenue(Scanner sc, int opt){
+		switch(opt){
+		case 1:
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			boolean flag = false;
+			Date date = new Date();
+			do {
+				System.out.println("What date (dd-MM-yyyy). Enter -1 to go back");
+				String in = sc.nextLine();
+				if (in.equals("-1")) return;
+			try {
+				date = formatter.parse(in);
+			} catch (ParseException e){
+				System.out.println("Wrong format. Try again");
+				flag = true;
+			}}
+			while(flag);
+			orderHistory.printRevenueReport(date);
+		case 2:
+			System.out.println("What month (enter number):");
+			Month month = Month.of(sc.nextInt());
+			orderHistory.printRevenueReport(month);
+		}	
 	}
 
 	public void addTable(int numberOfSeat) {
