@@ -25,4 +25,8 @@ public class TablesManager {
 	public void setStatus(int tableID, TableStatus status){
 		tableList.get(tableID).setStatus(status);
 	}
+	
+	public void cleanUp(){
+		IOHandler.writeSerializedObject("Tables.db", tableList);
+	}
 }

@@ -9,16 +9,9 @@ import Helper.IOHandler;
 
 public class OrderHistory {
 	private ArrayList<Order> ordersList;
-	private ObjectInputStream in;
-	private ObjectOutputStream out;
-	
 	OrderHistory() throws IOException{
-		ordersList = (ArrayList)IOHandler.readSerializedObject("OdersHistory.db");
-		
-		FileOutputStream fo = new FileOutputStream("OrderHistory.db");
-		BufferedOutputStream bo = new BufferedOutputStream(fo);
-		out = new ObjectOutputStream(bo);
-		
+		ordersList = new ArrayList<Order>();
+		ordersList = (ArrayList)IOHandler.readSerializedObject("OrdersHistory.db");
 	}
 	public void newOrder(int staffID, int tableID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs, Menu menu){
 		if (itemIDs.isEmpty() && packageIDs.isEmpty()){
@@ -97,5 +90,9 @@ public class OrderHistory {
 	public void show(){
 		//print out 10 recent orders' header
 		System.out.println(this);
+	}
+	
+	public void cleanUp(){
+		IOHandler.writeSerializedObject("OrdersHistory.db", ordersList);
 	}
 }

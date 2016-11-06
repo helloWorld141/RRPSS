@@ -7,6 +7,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.sound.midi.Patch;
+
 import java.time.*;
 import Helper.*;
 
@@ -37,15 +40,15 @@ public class Restaurant {
 				+ "\n(2) Change item's price"
 				+ "\n(3) Change item's description"
 				+ "\n(4) Back");
-		int opt = sc.nextInt();
-		
-		System.out.println("Enter item ID");
-		id = sc.nextLine();
+		int opt = Integer.parseInt(sc.next());
+		if (opt == 4) return false;
+		System.out.println("Enter item ID:");
+		id = sc.next();
 
 		switch (opt) {
 		case 1:
 			System.out.println("Enter new name: ");
-			newVal = sc.nextLine();
+			newVal = sc.next();
 			menu.updateItemName(id, newVal);
 			break;
 		case 2:
@@ -71,11 +74,19 @@ public class Restaurant {
 				+ "\n(2) Drinks"
 				+ "\n(3) Desserts"
 				+ "\n(4) Back");
-		int type = sc.nextInt();
+		String in = sc.next();	
+		int type;
+		try{
+			type = Integer.parseInt(in);
+		} catch (NumberFormatException e){
+			System.out.println("Invalid choice!!!");
+			return 5; // Ask again
+		}
 		if (type > 4 || type <1){
 			System.out.println("Invalid choice!!!");
-			return 5;
+			return 5; //Ask again
 		}
+		if (type == 4) return 4;
 		sc.nextLine();
 		System.out.println("Enter name:");
 		String name = sc.nextLine();
@@ -314,5 +325,11 @@ public class Restaurant {
 			Month month = Month.of(sc.nextInt());
 			orderHistory.printRevenueReport(month);
 		}	
+	}
+	
+	public void cleanUp(){
+		orderHistory.cleanUp();
+		menu.cleanUp();
+		tablesManager.cleanUp();
 	}
 }

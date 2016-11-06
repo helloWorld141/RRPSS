@@ -1,5 +1,8 @@
 package Application;
 import java.util.*;
+
+import Helper.IOHandler;
+
 import java.io.*;
 
 public class RestaurantApp {
@@ -29,6 +32,7 @@ public class RestaurantApp {
 			case 7:
 				printSaleRevenue(sc, myRestaurant);
 			case 10:
+				myRestaurant.cleanUp();
 				return;
 			}
 		}

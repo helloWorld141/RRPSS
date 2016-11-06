@@ -1,8 +1,9 @@
 package Application;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable{
 	private int orderID;
 	private int staffID;
 	private int tableID;

@@ -61,4 +61,10 @@ public class MenuItem implements Serializable{
 	public CourseType getType(){
 		return this.type;
 	}
+	
+	@Override
+	public String toString(){
+		String d = "|";
+		return (type+d+ID+d+name+d+description+d+price);
+	}
 }

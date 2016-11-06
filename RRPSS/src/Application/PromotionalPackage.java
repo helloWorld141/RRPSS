@@ -1,7 +1,8 @@
 package Application;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PromotionalPackage {
+public class PromotionalPackage implements Serializable{
 	private Integer ID;
 	private double packagePrice;
 	private ArrayList<MenuItem> itemList;

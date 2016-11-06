@@ -1,12 +1,13 @@
 package Application;
+import java.io.Serializable;
 
-public class Staff {
+public class Staff implements Serializable{
 	private String name;
 	private String gender;
 	private int staffID;
 	private String role;
 	
-	Staff(String name, String gender, int ID, String role){
+	public Staff(String name, String gender, int ID, String role){
 		this.name = name;
 		this.gender = gender;
 		this.staffID = ID;
@@ -25,5 +26,10 @@ public class Staff {
 	}
 	public String getRole(){
 		return this.role;
+	}
+	@Override 
+	public String toString(){
+		String d = "|";
+		return (name+d+gender+d+staffID+d+role);
 	}
 }
