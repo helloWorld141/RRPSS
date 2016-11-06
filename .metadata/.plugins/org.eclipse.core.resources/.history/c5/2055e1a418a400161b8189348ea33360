@@ -1,0 +1,10 @@
+package Application;
+
+public class StaffManager {
+	ArrayList<Staff> staffList;
+	
+	StaffManager(){
+		//TODO
+	}
+	
+}

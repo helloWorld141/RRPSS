@@ -1,0 +1,22 @@
+package Application;
+import java.util.*;
+
+import Helper.IOHandler;
+
+import java.io.*;
+
+public class TablesManager {
+	private ArrayList<Table> tableList;
+	
+	public TablesManager(){
+		tableList = new ArrayList<Table>();
+		tableList = (ArrayList) IOHandler.readSerializedObject("Tables.db");
+	}
+	
+	public void showAvailableTables(){
+		//TODO
+	}
+	public boolean isAvail(){
+		
+	}
+}

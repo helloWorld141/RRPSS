@@ -1,0 +1,5 @@
+package Application;
+
+public class StaffManager {
+	ArrayList<Staff> staffList = new ArrayList<Staff>();
+}

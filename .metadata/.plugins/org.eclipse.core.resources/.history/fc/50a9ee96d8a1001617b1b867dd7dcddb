@@ -1,6 +1,0 @@
-
-public class Table {
-	private int tableID;
-	private String status;
-	Table
-}

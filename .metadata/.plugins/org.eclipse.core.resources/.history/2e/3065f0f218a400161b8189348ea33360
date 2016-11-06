@@ -1,0 +1,14 @@
+package Application;
+import java.util.*;
+import java.io.*;
+public class StaffManager {
+	ArrayList<Staff> staffList;
+	
+	public StaffManager(){
+		staffList = new ArrayList<Staff>();
+		staffList = 
+	}
+	public isValid(int staffID){
+		return (staffID >= 0 && staffID < staffList.size());
+	}
+}

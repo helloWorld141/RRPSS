@@ -11,17 +11,15 @@ import java.time.*;
 import Helper.*;
 
 public class Restaurant {
-	private ArrayList<Table> tableList;
-	private ArrayList<Staff> staffList;
+	private TablesManager tablesManager;
+	private StaffManager staffManager;
 	private OrderHistory orderHistory;
 	private Menu menu;
 
 	Restaurant() throws IOException {
-		ArrayList<Table> tbList = new ArrayList<Table>();
-		tbList = (ArrayList) IOHandler.readSerializedObject("Tables.db");
-		System.out.println(tbList);
-		// TODO load staff from file db
-		// orderHistory = new OrderHistory();
+		tablesManager = new TablesManager();
+		staffManager = new StaffManager();
+		orderHistory = new OrderHistory();
 		menu = new Menu();
 	}
 
@@ -167,7 +165,7 @@ public class Restaurant {
 		System.out.println("Enter Staff ID (Enter -1 to cancel order):");
 		int staffID = sc.nextInt();
 		if (staffID == -1) return;
-		while (staffID <0 || staffID >= staffList.size()){
+		while (!staffManager.isValid(staffID)){
 			System.out.println("Invalid staff ID. Try again:");
 			staffID = sc.nextInt();
 			if (staffID == -1) return;
@@ -281,23 +279,10 @@ public class Restaurant {
 	}
 
 	public boolean tableAvail(int tableID) {
-		if (tableID <0 || tableID >=30) return false;
-		for (int i = 0; i < tableList.size(); i++) {
-			if (tableList.get(i).getTableID() == tableID) {
-				return (tableList.get(i).getStatus() == TableStatus.available);
-			}
-		}
-		return true;
+		return tablesManager.isAvail(tableID);
 	}
-
 	public void showAvailableTables() {
-		ListIterator<Table> i = tableList.listIterator();
-		while (i.hasNext()) {
-			Table table = i.next();
-			if (table.getStatus().equals(TableStatus.available))
-				System.out.println(table);
-		}
-
+		tablesManager.showAvailableTables();
 	}
 
 	public void printOrderInvoice(Scanner sc) {
@@ -330,32 +315,4 @@ public class Restaurant {
 			orderHistory.printRevenueReport(month);
 		}	
 	}
-
-	public void addTable(int numberOfSeat) {
-		int newID = tableList.size();
-		tableList.add(new Table(newID, numberOfSeat));
-	}
-
-	public void removeTable(int tableID) {
-		for (int i = 0; i < tableList.size(); i++)
-			if (tableList.get(i).getTableID() == tableID) {
-				tableList.remove(i);
-				break;
-			}
-		;
-	}
-
-	public void addStaff(Staff newStaff) {
-		staffList.add(newStaff);
-	}
-
-	public void removeStaff(int staffID) {
-		for (int i = 0; i < staffList.size(); i++)
-			if (staffList.get(i).getStaffID() == staffID) {
-				staffList.remove(i);
-				break;
-			}
-		;
-	}
-
 }

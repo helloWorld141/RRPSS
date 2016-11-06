@@ -1,8 +1,0 @@
-package Mock;
-import Application.Table;
-
-public class CreateMockDB {
-	public static void main (String[] args){
-		ArrayList<Table> tbList= new ArrayList<Table>; 
-	}
-}

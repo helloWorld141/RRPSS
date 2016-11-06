@@ -1,6 +1,0 @@
-
-public class CreateMockDB {
-	public static void main (String[] args){
-		
-	}
-}

@@ -1,4 +1,0 @@
-
-public class Restaurant {
-	private Table[30] tableList; 
-}

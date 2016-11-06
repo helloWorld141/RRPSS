@@ -1,0 +1,11 @@
+package Application;
+
+public class TablesManager {
+	private ArrayList<Table> tableList;
+	
+	public TablesManager(){
+		tableList = new ArrayList<Table>();
+		tableList = 
+	}
+	
+}

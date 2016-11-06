@@ -1,0 +1,12 @@
+package Application;
+import 
+public class StaffManager {
+	ArrayList<Staff> staffList;
+	
+	public StaffManager(){
+		//TODO
+	}
+	public isValid(int staffID){
+		return (staffID >= 0 && staffID < staffList.size());
+	}
+}

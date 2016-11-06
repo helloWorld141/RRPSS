@@ -18,21 +18,22 @@ public class Table implements Serializable {
 	public int getTableID(){
 		return this.tableID;
 	}
-	
 	public TableStatus getStatus(){
 		return this.status;
 	}
-	
 	public int getSeatCapacity(){
 		return this.seatCapacity;
 	}
+	public void setStatus(TableStatus status){
+		this.status = status;
+	}
+	
 	@Override
 	public String toString(){
 		//TODO
 		return "table "+this.tableID + "|" + this.seatCapacity + " seats|"
 				+ status;
-	}
-	
+	}	
 	@Override
 	public boolean equals(Object o) {
 		if (o == this) return true;
@@ -43,7 +44,6 @@ public class Table implements Serializable {
 			return true;
 		return false;
 	}
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.tableID, this.status, this.seatCapacity);

@@ -1,8 +1,0 @@
-
-public class Menu {
-	private ArrayList<PromotionalPackage> promotionalPackageList;
-	ArrayList<String> typeList;
-	ArrayList<MrnuItem> mainCourse;
-	ArrayList<MenuItem> drinks;
-	ArrayList<MenuuItem> desserts;
-}
