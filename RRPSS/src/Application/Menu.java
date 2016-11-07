@@ -80,9 +80,9 @@ public class Menu implements Serializable{
 		System.out.println(menuItemList.get("main"));
 	}
 	public void removeMenuItem(String ID){
-		int type = ID.charAt(0);
+		char type = ID.charAt(0);
 		int i=0;
-		String courseType = CourseType.values()[type-1].toString();
+		String courseType = CourseType.values()[type-49].toString();
 		for(i=0;i<menuItemList.get(courseType).size();i++){
 			if (menuItemList.get(courseType).get(i).getID().equals(ID)){
 				menuItemList.get(courseType).remove(i);
@@ -115,8 +115,8 @@ public class Menu implements Serializable{
 	}
 	
 	public void addItemToPackage(int packageNo, String itemID){
-		int type = itemID.charAt(0);
-		String courseType = CourseType.values()[type-1].toString();
+		char type = itemID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
 		for(int i=0;i<menuItemList.get(courseType).size();i++){
 			if (menuItemList.get(courseType).get(i).getID().equals(itemID)){
 				promotionalPackageList.get(packageNo).addItem(menuItemList.get(courseType).get(i));
@@ -141,8 +141,8 @@ public class Menu implements Serializable{
 	}
 	
 	public MenuItem getMenuItem(String itemID){
-		int type = itemID.charAt(0);
-		String courseType = CourseType.values()[type-1].toString();
+		char type = itemID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
 		for(int i=0;i<menuItemList.get(courseType).size();i++){
 			if (menuItemList.get(courseType).get(i).getID().equals(itemID)){
 				return menuItemList.get(courseType).get(i);

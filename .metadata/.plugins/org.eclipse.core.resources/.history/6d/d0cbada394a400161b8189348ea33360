@@ -1,0 +1,11 @@
+package Application;
+import java.time.*;
+public class Reservation {
+	private String contact;
+	private LocalDateTime arrivalTime;
+	private int pax;
+	
+	Reservation(){
+		
+	}
+}

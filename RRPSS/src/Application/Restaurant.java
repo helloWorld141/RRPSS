@@ -18,12 +18,14 @@ public class Restaurant {
 	private StaffManager staffManager;
 	private OrderHistory orderHistory;
 	private Menu menu;
+	private Reserve reserve;
 
 	Restaurant() throws IOException {
 		tablesManager = new TablesManager();
 		staffManager = new StaffManager();
 		orderHistory = new OrderHistory();
 		menu = new Menu();
+		reserve = new Reserve();
 	}
 
 	public boolean updateMenuItem(Scanner sc) {
@@ -214,7 +216,7 @@ public class Restaurant {
 		} while (packageID != 0);
 		
 		orderHistory.newOrder(staffID, tableID, itemIDs, packageIDs, menu);
-		
+		tablesManager.setStatus(tableID, TableStatus.occupied);
 	}
 
 	public void viewOrder(Scanner sc) {
@@ -225,49 +227,60 @@ public class Restaurant {
 	}
 
 	public void addToOrder(Scanner sc) {
-		System.out.println("Choose an option:"
+		int opt = 0;
+		do {
+			System.out.println("Choose an option:"
 				+ "\n(1) Add items"
 				+ "\n(2) Add packages"
 				+ "\n(3) Back");
-		int opt = 0;
-		while(opt != 3){
-			opt = sc.nextInt();
-			System.out.println("What order?");
-			int orderID = sc.nextInt();
-			switch (opt){
-			case 1:
-				System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
-				menu.viewMenuItem();
-				ArrayList<String> itemIDs = new ArrayList<String>();
-				Integer itemID;
-				do {
-					itemID = sc.nextInt();
-					if (itemID == -1) return;
-					if (itemID != 0){
-						itemIDs.add(itemID.toString());
-					}
-				} while (itemID != 0);
-				orderHistory.addItemsToOrder(orderID, itemIDs, menu);
-				break;
-			case 2:
-				System.out.println("Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
-				menu.viewMenuItem();
-				ArrayList<Integer> packageIDs = new ArrayList<Integer>();
-				Integer packageID;
-				do {
-					packageID = sc.nextInt();
-					if (packageID == -1) return;
-					if (packageID != 0){
-						packageIDs.add(packageID);
-					}
-				} while (packageID != 0);
-				orderHistory.addPackagesToOrder(orderID, packageIDs, menu);
-				break;
-			case 3:
-				break;
-			default:
-				System.out.println("Invalid choice");
+			try {
+				opt = sc.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println("Invalid choice!!!");
 			}
+		} while(opt >3 || opt <1);
+		int orderID = -1;
+		try {
+			System.out.println("What order?");
+			orderID = sc.nextInt();
+		} catch (InputMismatchException e){
+			System.out.println("Invalid choice");
+			opt = 3; //break;
+		}
+		
+		switch (opt){
+		case 1:
+			System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
+			menu.viewMenuItem();
+			ArrayList<String> itemIDs = new ArrayList<String>();
+			Integer itemID;
+			do {
+				itemID = sc.nextInt();
+				if (itemID == -1) return;
+				if (itemID != 0){
+					itemIDs.add(itemID.toString());
+				}
+			} while (itemID != 0);
+			orderHistory.addItemsToOrder(orderID, itemIDs, menu);
+			return;
+		case 2:
+			System.out.println("Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
+			menu.viewMenuItem();
+			ArrayList<Integer> packageIDs = new ArrayList<Integer>();
+			Integer packageID;
+			do {
+				packageID = sc.nextInt();
+				if (packageID == -1) return;
+				if (packageID != 0){
+					packageIDs.add(packageID);
+				}
+			} while (packageID != 0);
+			orderHistory.addPackagesToOrder(orderID, packageIDs, menu);
+			return;
+		case 3:
+			break;
+		default:
+			System.out.println("Invalid choice");
 		}
 	}
 	public void removeFromOrder(Scanner sc) {
@@ -300,6 +313,8 @@ public class Restaurant {
 		System.out.println("What order");
 		int orderID = sc.nextInt();
 		orderHistory.printOrderInvoice(orderID);
+		tablesManager.setStatus(orderHistory.getOrder(orderID).getTableID(),
+				TableStatus.vacated);
 	}
 
 	public void printSaleRevenue(Scanner sc, int opt){
@@ -314,6 +329,7 @@ public class Restaurant {
 				if (in.equals("-1")) return;
 			try {
 				date = formatter.parse(in);
+				flag = true;
 			} catch (ParseException e){
 				System.out.println("Wrong format. Try again");
 				flag = true;
@@ -327,9 +343,46 @@ public class Restaurant {
 		}	
 	}
 	
+	public void createReservation(Scanner sc){
+		System.out.println("Enter enter contact number:");
+		String contact = sc.nextLine();
+		System.out.println("Enter arrival time (dd/MM/yy HH:mm):");
+		String arrival = sc.nextLine();
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
+		Date arrTime = new Date();
+		try {
+			arrTime = formatter.parse(arrival);
+		} catch (ParseException e){
+			System.out.println("Wrong format");
+		}
+		LocalDateTime arrivalTime = LocalDateTime.ofInstant(arrTime.toInstant(), ZoneId.systemDefault());
+		System.out.println("Enter number of people:");
+		int pax = sc.nextInt();
+		ArrayList<Integer> reservedTables = reserve.newReservation(contact, arrivalTime, pax, tablesManager.getAvailTables());
+		tablesManager.reserve(reservedTables);
+	}
+	public void checkReservation(String contact){
+		Reservation reservation = reserve.getReservation(contact);
+		if (reservation == null)
+			System.out.println("This number has not reserved.");
+		else System.out.println(reservation);
+	}
+	
+	public void removeReservation(String contact){
+		Reservation reservation = reserve.getReservation(contact);
+		if (reservation == null)
+			System.out.println("This number has not reserved.");
+		else 
+			{
+			ArrayList<Integer> releasedTables = reserve.removeReservation(
+					reservation.getID());
+			tablesManager.release(releasedTables);
+			}
+	}
 	public void cleanUp(){
 		orderHistory.cleanUp();
 		menu.cleanUp();
 		tablesManager.cleanUp();
+		reserve.cleanUp();
 	}
 }

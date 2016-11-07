@@ -1,0 +1,18 @@
+package Application;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.util.*;
+public class Test {
+	public static void main (String[] args){
+		Scanner sc = new Scanner(System.in);
+		DateFormat formatter = new SimpleDateFormat("HH:mm a");
+		String in = sc.next();
+		try {
+			Date date = formatter.parse(in);
+		} catch (ParseException e){
+			System.out.println("error");
+		}
+	}
+}

@@ -1,0 +1,25 @@
+package Application;
+
+import java.time.LocalDateTime;
+import java.util.*;
+
+import Helper.IOHandler;
+
+public class Reserve {
+	ArrayList<Reservation> reservations;
+	
+	public Reserve(){
+		reservations = new ArrayList<Reservation>();
+		reservations = (ArrayList)IOHandler.readSerializedObject("Reservations.db");
+	}
+	
+	public ArrayList<Integer> newReservation(String contact, LocalDateTime arrival, int pax, ArrayList<Table> availTables){
+		int id = reservations.size();
+		Reservation newR = new Reservation(id, contact, arrival, pax);
+		return newR.autoAssignTables(availTables);
+	}
+	
+	public void cleanUp(){
+		IOHandler.writeSerializedObject("Reservations.db", reservations);
+	}
+}

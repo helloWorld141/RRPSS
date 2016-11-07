@@ -31,8 +31,11 @@ public class OrderHistory {
 		ordersList.add(new Order(orderID, staffID, tableID, timeStamp, menuItems, packages));
 	}
 	
+	public Order getOrder(int orderID){
+		return ordersList.get(orderID);
+	}
 	public void viewOrder(int orderID){
-		System.out.println(ordersList.get(orderID));
+		System.out.println(getOrder(orderID));
 	}
 
 	public void addItemsToOrder(int orderID, ArrayList<String> itemIDs, Menu menu){
@@ -68,6 +71,7 @@ public class OrderHistory {
 			return;
 		}
 		ordersList.get(orderID).printOrderInvoice();
+		ordersList.get(orderID).pay();
 	}
 	public void printRevenueReport(Month month){
 		//TODO filter orders in OrderList by its month and print to the screen
@@ -84,7 +88,7 @@ public class OrderHistory {
 		String result = new String();
 		for (Order order : ordersList)
 			result.concat(order.info());
-		return toString();
+		return result;
 	}
 	
 	public void show(){

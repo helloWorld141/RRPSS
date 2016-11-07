@@ -1,0 +1,7 @@
+package Application;
+
+public class Reserve {
+	ArrayList<Reservation> reservations;
+	
+	Reserve
+}

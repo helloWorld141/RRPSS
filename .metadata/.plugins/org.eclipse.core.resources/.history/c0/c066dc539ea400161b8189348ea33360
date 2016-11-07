@@ -1,0 +1,18 @@
+package Application;
+
+import java.util.*;
+
+public class Reserve {
+	ArrayList<Reservation> reservations;
+	
+	public Reserve(){
+		//TODO
+	}
+	
+	public void newReservation(String contact, LocalDateTime arrival, int pax){
+		int id = reservations.size();
+		Reservation newR = new Reservation(id, contact, arrival, pax);
+		newR.autoAssignTables(availTables);
+		
+	}
+}

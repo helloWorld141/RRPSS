@@ -13,17 +13,33 @@ public class TablesManager {
 		tableList = (ArrayList) IOHandler.readSerializedObject("Tables.db");
 	}
 	
+	public ArrayList<Table> getAvailTables(){
+		ArrayList<Table> availTables = new ArrayList<Table>();
+		for (Table table:tableList)
+			if (table.isAvail())
+				availTables.add(table);
+		return availTables;
+	}
 	public void showAvailableTables(){
-		for (Table table:tableList){
-			if (table.getStatus().equals(TableStatus.available))
-				System.out.println(table);
-		}
+		System.out.println(getAvailTables());
 	}
 	public boolean isAvail(int tableID){
-		return tableList.get(tableID).getStatus().equals(TableStatus.available);
+		if (tableID<0 || tableID>29) return false;
+		return tableList.get(tableID).isAvail();
 	}
 	public void setStatus(int tableID, TableStatus status){
 		tableList.get(tableID).setStatus(status);
+	}
+	
+	public void reserve(ArrayList<Integer> tableIDs){
+		for (int id:tableIDs){
+			setStatus(id, TableStatus.reserved);
+		}
+	}
+	public void release(ArrayList<Integer> tableIDs){
+		for (int id:tableIDs){
+			setStatus(id, TableStatus.vacated);
+		}
 	}
 	
 	public void cleanUp(){

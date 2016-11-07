@@ -1,0 +1,9 @@
+package Application;
+
+import java.util.*;
+
+public class Reserve {
+	ArrayList<Reservation> reservations;
+	
+	Reserve()
+}

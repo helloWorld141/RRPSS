@@ -2,11 +2,12 @@ package Application;
 import java.util.*;
 
 import Helper.IOHandler;
-
 import java.io.*;
+import java.time.LocalDateTime;
 
 public class RestaurantApp {
 	public static void main (String[] args) throws IOException{
+		System.out.println(LocalDateTime.now());
 		final Restaurant myRestaurant = new Restaurant();
 		Scanner sc = new Scanner(System.in);
 		while (prompt()){
