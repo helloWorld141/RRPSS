@@ -1,22 +1,23 @@
 package Application;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.UUID;
 public class Reservation {
-	private int id;
+	private String id;
 	private String contact;
 	private LocalDateTime arrivalTime;
 	private int pax;
 	private ArrayList<Integer> tableIDs;
 	
-	Reservation(int id, String contact, LocalDateTime arrival, int pax){
-		this.id = id;
+	Reservation(String contact, LocalDateTime arrival, int pax){
+		this.id = UUID.randomUUID().toString();
 		this.contact = contact;
 		this.arrivalTime = arrival;
 		this.pax = pax;
 		this.tableIDs = new ArrayList<Integer>();
 	}
 	
-	public int getID(){
+	public String getID(){
 		return this.id;
 	}
 	public void setTime(LocalDateTime arrival){

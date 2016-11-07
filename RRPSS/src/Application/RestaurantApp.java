@@ -32,7 +32,16 @@ public class RestaurantApp {
 				myRestaurant.printOrderInvoice(sc);
 			case 7:
 				printSaleRevenue(sc, myRestaurant);
+			case 8:
+				myRestaurant.createReservation(sc);
+				break;
+			case 9:
+				myRestaurant.checkReservation(sc);
+				break;
 			case 10:
+				myRestaurant.removeReservation(sc);
+				break;
+			case 11:
 				myRestaurant.cleanUp();
 				return;
 			}
@@ -49,7 +58,10 @@ public class RestaurantApp {
 				+ "\n(5) Remove from order"
 				+ "\n(6) Print order invoice"
 				+ "\n(7) Print total revenue"
-				+ "\n(10) Exit");
+				+ "\n(8) Create new reservation"
+				+ "\n(9) Cancel reservation"
+				+ "\n(10) Check reservation"
+				+ "\n(11) Exit");
 		return true;
 	}
 	

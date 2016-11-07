@@ -1,0 +1,16 @@
+package Helper;
+
+import java.sql.Time;
+import java.time.LocalTime;
+
+public class TimeHandler {
+	TimeHandler(){}
+	public static String whatSession(LocalTime time){
+		LocalTime AMfirst = Time.valueOf("11:00:00").toLocalTime();
+		LocalTime AMsecond = Time.valueOf("15:00:00").toLocalTime();
+		LocalTime PMfirst = Time.valueOf("18:00:00").toLocalTime();
+		LocalTime PMsecond = Time.valueOf("22:00:00").toLocalTime();
+		if (time.compareTo(AMfirst)>0 && time.compareTo(AMsecond)<0)
+			return "AM";
+	}
+}

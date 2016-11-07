@@ -1,0 +1,11 @@
+package Helper;
+
+import java.time.LocalTime;
+
+public class TimeHandler {
+	TimeHandler(){}
+	public static String whatSession(LocalTime time){
+		LocalTime 
+		if time.compareTo(other)
+	}
+}

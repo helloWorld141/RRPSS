@@ -1,13 +1,12 @@
 package Application;
 import java.io.Serializable;
 import java.time.*;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 public class Table implements Serializable {
 	private int tableID;
 	private TableStatus status;
 	private int seatCapacity;	
-	private LocalDateTime timestamp = null;
+	private ArrayList<String> reservationIDs;
 	
 	public Table(int ID, int seatCapacity){
 		this(ID, TableStatus.vacated, seatCapacity);
@@ -16,6 +15,7 @@ public class Table implements Serializable {
 		this.tableID = ID;
 		this.status = status;
 		this.seatCapacity = seatCapacity;
+		reservationIDs = new ArrayList<String>();
 	}
 	
 	public int getTableID(){
@@ -30,23 +30,17 @@ public class Table implements Serializable {
 	public void setStatus(TableStatus status){
 		this.status = status;
 	}
-	public LocalDateTime getTime(){
-		return this.timestamp;
+	public ArrayList<String> getReservationIDs(){
+		return this.reservationIDs;
 	}
-	public void setTime(){
-		this.timestamp = LocalDateTime.now();
-	}
-	public boolean isAvail(){ //check and update status
-		if (this.status.equals(TableStatus.vacated)) return true;
-		if (this.status.equals(TableStatus.reserved)){
-			Duration duration = Duration.between(this.timestamp.toLocalDate(), LocalDateTime.now().toLocalDate());
-			if (duration.toMinutes() > 30){
-				
+	public void removeReservation(String id){
+		for (int i=0;i<reservationIDs.size();i++){
+			if (reservationIDs.get(i).equals(id)){
+				reservationIDs.remove(i);
+				return;
 			}
 		}
-		return false;
 	}
-	
 	@Override
 	public String toString(){
 		//TODO
