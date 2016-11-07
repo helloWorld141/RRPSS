@@ -38,7 +38,8 @@ public class Menu implements Serializable{
 				break;
 			}
 		}
-		System.out.println(menuItemList.get("main"));
+		System.out.println(menuItemList);
+		System.out.println(promotionalPackageList);
 	}
 	
 	public void updateItemName(String ID, String newName){

@@ -175,12 +175,13 @@ public class Restaurant {
 
 	public void createNewOrder(Scanner sc) {
 		System.out.println("Enter Staff ID (Enter -1 to cancel order):");
-		int staffID = sc.nextInt();
+		int staffID = -1;
+		staffID = SafeInput.safeRead(staffID, sc);
 		if (staffID == -1)
 			return;
 		while (!staffManager.isValid(staffID)) {
 			System.out.println("Invalid staff ID. Try again:");
-			staffID = sc.nextInt();
+			staffID = SafeInput.safeRead(staffID, sc);
 			if (staffID == -1)
 				return;
 		}
@@ -188,7 +189,7 @@ public class Restaurant {
 		while (!tableAvail(tableID)) {
 			System.out.println("Enter available Table ID (Enter -1 to cancel order)");
 			showAvailableTables();
-			tableID = sc.nextInt();
+			tableID = SafeInput.safeRead(tableID, sc);
 			if (tableID == -1)
 				return;
 		}
@@ -196,9 +197,9 @@ public class Restaurant {
 		System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
-		Integer itemID;
+		Integer itemID = -1;
 		do {
-			itemID = sc.nextInt();
+			itemID = SafeInput.safeRead(itemID, sc);
 			if (itemID == -1)
 				return;
 			if (itemID != 0) {
@@ -209,9 +210,9 @@ public class Restaurant {
 		System.out.println("Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
 		menu.viewMenuItem();
 		ArrayList<Integer> packageIDs = new ArrayList<Integer>();
-		Integer packageID;
+		Integer packageID = -1;
 		do {
-			packageID = sc.nextInt();
+			packageID = SafeInput.safeRead(packageID, sc);
 			if (packageID == -1)
 				return;
 			if (packageID != 0) {
@@ -221,12 +222,22 @@ public class Restaurant {
 
 		orderHistory.newOrder(staffID, tableID, itemIDs, packageIDs, menu);
 		tablesManager.setStatus(tableID, TableStatus.occupied);
+		System.out.println("Order has been made.");
 	}
 
 	public void viewOrder(Scanner sc) {
-		System.out.println("What order");
+		System.out.println("What order (-1 to cancel)");
 		orderHistory.show();
-		int orderID = sc.nextInt();
+		int orderID = -1;
+		orderID = SafeInput.safeRead(orderID, sc);
+		if (orderID == -1)
+			return;
+		while(!orderHistory.isValid(orderID)){
+			System.out.println("Invalid order ID. Try again:");
+			orderID = SafeInput.safeRead(orderID, sc);
+			if (orderID == -1)
+				return;
+		}
 		orderHistory.viewOrder(orderID);
 	}
 

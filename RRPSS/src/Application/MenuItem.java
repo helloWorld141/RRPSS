@@ -13,9 +13,7 @@ public class MenuItem implements Serializable{
 	private String description;
 	private double price;	
 	
-	MenuItem(){};
-	
-	MenuItem(String ID, CourseType type, String name, String description, double price){
+	public MenuItem(String ID, CourseType type, String name, String description, double price){
 		this.ID = ID;
 		this.price = price;
 		this.name = name;

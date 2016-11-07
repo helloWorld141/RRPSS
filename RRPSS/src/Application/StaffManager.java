@@ -10,6 +10,7 @@ public class StaffManager {
 	public StaffManager(){
 		staffList = new ArrayList<Staff>();
 		staffList = (ArrayList) IOHandler.readSerializedObject("Staff.db");
+		System.out.println(staffList);
 	}
 	public boolean isValid(int staffID){
 		return (staffID >= 0 && staffID < staffList.size());

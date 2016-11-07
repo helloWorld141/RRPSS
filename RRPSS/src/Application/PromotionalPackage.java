@@ -54,4 +54,10 @@ public class PromotionalPackage implements Serializable{
 				itemList.remove(i);
 		}
 	}
+	
+	@Override
+	public String toString(){
+		String d = "|";
+		return packageName+d+packagePrice;
+	}
 }

@@ -1,7 +1,0 @@
-package Application;
-
-public class Reserver {
-	ArrayList<Reservation> reservationList;
-	
-	Reserve
-}

@@ -29,6 +29,11 @@ public class CreateMockDB {
 		createMockItems(itList);
 		List list5 = (ArrayList) itList;
 		IOHandler.writeSerializedObject("Items.db", list5);
+		
+		ArrayList<Reservation> reList = new ArrayList<Reservation>();
+		createMockReservations(reList);
+		List list6 = (ArrayList) reList;
+		IOHandler.writeSerializedObject("Reservations.db", list6);
 	}
 	
 	public static void createMockTables(ArrayList<Table> tbList){
@@ -66,6 +71,35 @@ public class CreateMockDB {
 	}
 	
 	public static void createMockItems(ArrayList<MenuItem> itList){
+		Integer i = 0;
+		String main = "Main Course ";
+		String drinks = "Drink ";
+		String desserts = "Dessert ";
+		for(;i<5;i++){
+			itList.add(new MenuItem(
+					String.valueOf(1)+i.toString(),
+					CourseType.valueOf("main"),
+					main + i.toString(),
+					"This is "+main+i.toString(),
+					100.0));
+			
+			itList.add(new MenuItem(
+					String.valueOf(2)+i.toString(),
+					CourseType.valueOf("drinks"),
+					drinks + i.toString(),
+					"This is "+drinks+i.toString(),
+					100.0));
+			
+			itList.add(new MenuItem(
+					String.valueOf(3)+i.toString(),
+					CourseType.valueOf("desserts"),
+					desserts + i.toString(),
+					"This is "+desserts+i.toString(),
+					100.0));
+		}
+	}
+	
+	public static void createMockReservations(ArrayList<Reservation> reList){
 		
 	}
 }

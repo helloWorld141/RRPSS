@@ -14,6 +14,7 @@ public class TablesManager {
 	public TablesManager() {
 		tableList = new ArrayList<Table>();
 		tableList = (ArrayList) IOHandler.readSerializedObject("Tables.db");
+		System.out.println(tableList);
 	}
 
 	public ArrayList<Table> getAvailTables(Reserve reserve) {

@@ -12,6 +12,7 @@ public class OrderHistory {
 	OrderHistory() throws IOException{
 		ordersList = new ArrayList<Order>();
 		ordersList = (ArrayList)IOHandler.readSerializedObject("OrdersHistory.db");
+		System.out.println(ordersList);
 	}
 	public void newOrder(int staffID, int tableID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs, Menu menu){
 		if (itemIDs.isEmpty() && packageIDs.isEmpty()){
@@ -30,14 +31,23 @@ public class OrderHistory {
 		}
 		ordersList.add(new Order(orderID, staffID, tableID, timeStamp, menuItems, packages));
 	}
-	
+	public boolean isValid(int orderID){
+		return (orderID < ordersList.size() && orderID >=0);
+	}
 	public Order getOrder(int orderID){
 		return ordersList.get(orderID);
 	}
 	public void viewOrder(int orderID){
 		System.out.println(getOrder(orderID));
 	}
-
+	//print out 10 recent orders' header
+	public void show(){
+		for (Order order:ordersList){
+			if (!order.isPaid()){
+				System.out.println(order.info());
+			}
+		}
+	}
 	public void addItemsToOrder(int orderID, ArrayList<String> itemIDs, Menu menu){
 		ArrayList<MenuItem> items = new ArrayList<MenuItem>();
 		for (String id:itemIDs)
@@ -77,7 +87,6 @@ public class OrderHistory {
 		//TODO filter orders in OrderList by its month and print to the screen
 		// use Order.forReport()
 	}
-	
 	public void printRevenueReport(Date date){
 		//TODO filter orders in OrderList by its date and print to the screen
 		// use Order.forReport()
@@ -87,13 +96,8 @@ public class OrderHistory {
 	public String toString(){
 		String result = new String();
 		for (Order order : ordersList)
-			result.concat(order.info());
+			result = result.concat(order.info());
 		return result;
-	}
-	
-	public void show(){
-		//print out 10 recent orders' header
-		System.out.println(this);
 	}
 	
 	public void cleanUp(){

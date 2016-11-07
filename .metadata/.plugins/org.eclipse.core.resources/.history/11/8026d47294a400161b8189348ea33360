@@ -1,6 +1,0 @@
-package Application;
-
-public class Reservation {
-	private String contact;
-	private 
-}

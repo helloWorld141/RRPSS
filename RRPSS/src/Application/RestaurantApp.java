@@ -11,7 +11,12 @@ public class RestaurantApp {
 		final Restaurant myRestaurant = new Restaurant();
 		Scanner sc = new Scanner(System.in);
 		while (prompt()){
-			int opt = sc.nextInt();
+			int opt = -1;
+			try {
+				opt = sc.nextInt();
+			} catch (InputMismatchException e){
+				System.out.println("Invalid input!!!");
+			}
 			switch (opt){
 			case 1:
 				modifyMenu(sc, myRestaurant);
@@ -30,8 +35,10 @@ public class RestaurantApp {
 				break;
 			case 6:
 				myRestaurant.printOrderInvoice(sc);
+				break;
 			case 7:
 				printSaleRevenue(sc, myRestaurant);
+				break;
 			case 8:
 				myRestaurant.createReservation(sc);
 				break;
@@ -50,7 +57,7 @@ public class RestaurantApp {
 	}
 	
 	public static boolean prompt(){
-		System.out.println("What would you like to perform:"
+		System.out.println("\nWhat would you like to perform:"
 				+ "\n(1) Modify Menu"
 				+ "\n(2) Create new order"
 				+ "\n(3) View order"

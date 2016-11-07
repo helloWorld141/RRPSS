@@ -21,6 +21,13 @@ public class Order implements Serializable{
 		this.menuItemsOrder = itemsOrder;
 		this.promotionalPackageOrder = packageOrder;
 		this.paid = false;
+		this.totalPrice = 0;
+		for (MenuItem item:menuItemsOrder){
+			this.totalPrice += item.getPrice();
+		}
+		for (PromotionalPackage packagee:promotionalPackageOrder){
+			this.totalPrice += packagee.getPackagePrice();
+		}
 	}
 	
 	public int getOrderID(){
@@ -34,6 +41,9 @@ public class Order implements Serializable{
 	}
 	public void pay(){
 		this.paid = true;
+	}
+	public boolean isPaid(){
+		return this.paid;
 	}
 	public void addMenuItem(MenuItem toAdd){
 		this.menuItemsOrder.add(toAdd);
@@ -71,16 +81,25 @@ public class Order implements Serializable{
 		return new String();
 	}
 	public String info(){
-		//TODO
-		return "\n";
+		String d = "|";
+		return "Order "+orderID+d+"Staff "+staffID+d+"Table "+tableID+d+"Price "+totalPrice+"\n";
 	}
 	
 	@Override
 	public String toString(){
 		//TODO
 		// what to print in orderInvoice
-		String d = "|";
-		return ("Order "+orderID+d+menuItemsOrder.toString()+d+promotionalPackageOrder.toString());
+		
+		String d = "\n";
+		String res = "Order "+orderID+d+"List of items and packages:";
+		for (MenuItem item:menuItemsOrder){
+			res = res.concat(d+item.toString());
+		}
+		for (PromotionalPackage packagee:promotionalPackageOrder){
+			res = res.concat(d+packagee.toString());
+		}
+		res = res.concat(d+"Total Price:" + String.valueOf(totalPrice));
+		return (res);
 	}
 	
 	public void printOrderInvoice(){

@@ -1,0 +1,20 @@
+package Helper;
+
+public class SafeInput {
+	SafeInput(){}
+	
+	void safeRead(int in, Scanner sc){
+		
+	}
+	void safeRead(int in, Scanner sc){
+			
+		}
+		
+	void safeRead(int in, Scanner sc){
+		
+	}
+	
+	void safeRead(int in, Scanner sc){
+		
+	}
+}

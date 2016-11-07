@@ -14,6 +14,7 @@ public class Reserve implements Serializable{
 	public Reserve(){
 		reservations = new ArrayList<Reservation>();
 		reservations = (ArrayList)IOHandler.readSerializedObject("Reservations.db");
+		System.out.println(reservations);
 	}
 	
 	public ArrayList<Integer> newReservation(String contact, LocalDateTime arrival, int pax, ArrayList<Table> availTables){

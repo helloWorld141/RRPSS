@@ -1,0 +1,21 @@
+package Helper;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class SafeInput {
+	SafeInput(){}
+	
+	public boolean safeRead(int in, Scanner sc){
+		try {
+			in = sc.nextInt();
+		} catch (InputMismatchException e){
+			System.out.println("Invalid input!!!");
+			return false;
+		}
+		return returl
+	}
+	public boolean safeRead(double in, Scanner sc){
+			
+	}
+}
