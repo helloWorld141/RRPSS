@@ -43,12 +43,18 @@ public class RestaurantApp {
 				myRestaurant.createReservation(sc);
 				break;
 			case 9:
-				myRestaurant.checkReservation(sc);
-				break;
-			case 10:
 				myRestaurant.removeReservation(sc);
 				break;
+			case 10:
+				myRestaurant.checkReservation(sc);
+				break;
 			case 11:
+				myRestaurant.showAvailableTables();
+				break;
+			case 12:
+				myRestaurant.cleanUp();
+				break;
+			case 13:
 				myRestaurant.cleanUp();
 				return;
 			}
@@ -68,7 +74,9 @@ public class RestaurantApp {
 				+ "\n(8) Create new reservation"
 				+ "\n(9) Cancel reservation"
 				+ "\n(10) Check reservation"
-				+ "\n(11) Exit");
+				+ "\n(11) Show available tables"
+				+ "\n(12) Save date"
+				+ "\n(13) Exit");
 		return true;
 	}
 	

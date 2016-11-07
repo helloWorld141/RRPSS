@@ -1,8 +1,9 @@
 package Application;
+import java.io.Serializable;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.UUID;
-public class Reservation {
+public class Reservation implements Serializable{
 	private String id;
 	private String contact;
 	private LocalDateTime arrivalTime;
@@ -66,5 +67,11 @@ public class Reservation {
 			availIDs.remove(last);
 		}
 		return new ArrayList<Integer>();
+	}
+	
+	@Override
+	public String toString(){
+		String d = "|";
+		return contact+d+arrivalTime+d+pax;
 	}
 }

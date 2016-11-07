@@ -84,12 +84,27 @@ public class OrderHistory {
 		ordersList.get(orderID).pay();
 	}
 	public void printRevenueReport(Month month){
-		//TODO filter orders in OrderList by its month and print to the screen
-		// use Order.forReport()
+		double totalRevenue = 0;
+		System.out.println("Revenue report on " + month);
+		for (Order order:ordersList){
+			if (order.when().toLocalDate().getMonth().equals(month) && order.isPaid()){
+				totalRevenue+=order.getTotalPrice();
+				System.out.println(order+"\n");
+			}
+		}
+		System.out.println("Total Revenue : "+ totalRevenue);
 	}
 	public void printRevenueReport(Date date){
-		//TODO filter orders in OrderList by its date and print to the screen
-		// use Order.forReport()
+		double totalRevenue = 0;
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		System.out.println("Revenue report on " + localDate);
+		for (Order order:ordersList){
+			if (order.when().toLocalDate().equals(localDate) && order.isPaid()){
+				totalRevenue+=order.getTotalPrice();
+				System.out.println(order+"\n");
+			}
+		}
+		System.out.println("Total Revenue : "+ totalRevenue);
 	}
 	
 	@Override

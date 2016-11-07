@@ -18,15 +18,17 @@ public class Reserve implements Serializable{
 	}
 	
 	public ArrayList<Integer> newReservation(String contact, LocalDateTime arrival, int pax, ArrayList<Table> availTables){
-		int id = reservations.size();
 		Reservation newR = new Reservation(contact, arrival, pax);
-		return newR.autoAssignTables(availTables);
+		ArrayList<Integer> reservedTables = newR.autoAssignTables(availTables);
+		reservations.add(newR);
+		return reservedTables;
 	}
 	
 	public Reservation getReservation(String contact){
 		for (Reservation res:reservations)
-			if (res.getContact().equals(contact))
+			if (res.getContact().equals(contact)){
 				return res;
+			}	
 		return null;
 	}
 	public void showReservation(String contact){

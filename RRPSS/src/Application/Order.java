@@ -45,6 +45,9 @@ public class Order implements Serializable{
 	public boolean isPaid(){
 		return this.paid;
 	}
+	public double getTotalPrice(){
+		return this.totalPrice;
+	}
 	public void addMenuItem(MenuItem toAdd){
 		this.menuItemsOrder.add(toAdd);
 	}
@@ -82,7 +85,7 @@ public class Order implements Serializable{
 	}
 	public String info(){
 		String d = "|";
-		return "Order "+orderID+d+"Staff "+staffID+d+"Table "+tableID+d+"Price "+totalPrice+"\n";
+		return "Order "+orderID+d+"Staff "+staffID+d+"Table "+tableID+d+"Price "+totalPrice;
 	}
 	
 	@Override

@@ -156,9 +156,27 @@ public class Menu implements Serializable{
 	}
 
 	public void viewMenuItem(){
-		//TODO
-		//format output to show all MenuItems in Menu
+		System.out.println("\n+ Main Course:");
+		ArrayList<MenuItem> list = menuItemList.get("main");
+		for (int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println("\n+ Drinks:");
+		list = menuItemList.get("drinks");
+		for (int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println("\n+ Desserts:");
+		list = menuItemList.get("desserts");
+		for (int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println("\n+ Promotional packages:");
+		for (int i=0;i<promotionalPackageList.size();i++){
+			System.out.println(promotionalPackageList.get(i));
+		}
 	}
+	
 	public void viewPackages(){
 		//TODO
 		//print out all packages in the current menu

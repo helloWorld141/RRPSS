@@ -1,5 +1,8 @@
 package Helper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -25,5 +28,16 @@ public class SafeInput {
 			in = safeRead(in, sc);
 		}
 		return in;
+	}
+	
+	public static Date safeRead(Date arrTime, Scanner sc, DateFormat formatter){
+		String arrival = sc.nextLine();
+		try {
+			arrTime = formatter.parse(arrival);
+		} catch (ParseException e) {
+			System.out.println("Wrong format. Try again");
+			arrTime = safeRead(arrTime, sc, formatter);
+		}
+		return arrTime;
 	}
 }

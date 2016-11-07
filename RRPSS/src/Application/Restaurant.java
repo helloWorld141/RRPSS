@@ -330,6 +330,7 @@ public class Restaurant {
 
 	public void printOrderInvoice(Scanner sc) {
 		System.out.println("What order");
+		orderHistory.show();
 		int orderID = sc.nextInt();
 		orderHistory.printOrderInvoice(orderID);
 		tablesManager.setStatus(orderHistory.getOrder(orderID).getTableID(), TableStatus.vacated);
@@ -338,48 +339,47 @@ public class Restaurant {
 	public void printSaleRevenue(Scanner sc, int opt) {
 		switch (opt) {
 		case 1:
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 			boolean flag = false;
 			Date date = new Date();
 			do {
-				System.out.println("What date (dd-MM-yyyy). Enter -1 to go back");
-				String in = sc.nextLine();
+				System.out.println("What date (dd/MM/yy). Enter -1 to go back");
+				String in = sc.next();
 				if (in.equals("-1"))
 					return;
 				try {
 					date = formatter.parse(in);
-					flag = true;
+					flag = false;
 				} catch (ParseException e) {
 					System.out.println("Wrong format. Try again");
 					flag = true;
 				}
 			} while (flag);
 			orderHistory.printRevenueReport(date);
+			break;
 		case 2:
 			System.out.println("What month (enter number):");
 			Month month = Month.of(sc.nextInt());
 			orderHistory.printRevenueReport(month);
+			break;
 		}
 	}
 
 	public void createReservation(Scanner sc) {
 		System.out.println("Enter enter contact number:");
-		String contact = sc.nextLine();
+		String contact = sc.next();
 		System.out.println("Enter arrival time (dd/MM/yy HH:mm):");
-		String arrival = sc.nextLine();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 		Date arrTime = new Date();
-		try {
-			arrTime = formatter.parse(arrival);
-		} catch (ParseException e) {
-			System.out.println("Wrong format");
-		}
+		sc.nextLine();
+		arrTime = SafeInput.safeRead(arrTime, sc, formatter);
 		LocalDateTime arrivalTime = LocalDateTime.ofInstant(arrTime.toInstant(), ZoneId.systemDefault());
 		System.out.println("Enter number of people:");
 		int pax = sc.nextInt();
 		ArrayList<Integer> reservedTables = reserve.newReservation(contact, arrivalTime, pax,
 				tablesManager.getAvailTables(reserve));
 		tablesManager.reserve(reservedTables);
+		System.out.println("Reserve successfully!");
 	}
 
 	public void checkReservation(Scanner sc) {
@@ -402,6 +402,7 @@ public class Restaurant {
 			ArrayList<Integer> releasedTables = reserve.removeReservation(reservation.getContact());
 			tablesManager.release(releasedTables, reservation.getID());
 		}
+		System.out.println("Reservation removed successfully!");
 	}
 
 	public void cleanUp() {
