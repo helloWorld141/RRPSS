@@ -21,7 +21,7 @@ public class OrderHistory {
 		System.out.println(ordersList);
 	}
 	/**
-	 * create new order and add it into the list
+	 * 
 	 * @param staffID
 	 * @param tableID
 	 * @param itemIDs

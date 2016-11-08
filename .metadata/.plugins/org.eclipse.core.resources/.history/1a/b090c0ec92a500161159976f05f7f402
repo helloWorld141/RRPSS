@@ -253,7 +253,7 @@ public class Restaurant {
 				return;
 		}
 		
-		System.out.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
+		System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
 		Integer itemID = -1;
@@ -261,23 +261,22 @@ public class Restaurant {
 			itemID = SafeInput.safeRead(itemID, sc);
 			if (itemID == -1)
 				return;
-			if (menu.isValid(itemID.toString())) {
+			if (itemID != 0) {
 				itemIDs.add(itemID.toString());
 			}
-		} while (itemID != 1000);
+		} while (itemID != 0);
 
-		System.out.println("Choose packages from package list (Enter 1000 when you are done. Enter -1 to cancel order):");
-		menu.viewPackages();
+		System.out.println("Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
 		ArrayList<Integer> packageIDs = new ArrayList<Integer>();
 		Integer packageID = -1;
 		do {
 			packageID = SafeInput.safeRead(packageID, sc);
 			if (packageID == -1)
 				return;
-			if (menu.isValid(packageID)) {
+			if (packageID != 0) {
 				packageIDs.add(packageID);
 			}
-		} while (packageID != 1000);
+		} while (packageID != 0);
 
 		orderHistory.newOrder(staffID, tableID, itemIDs, packageIDs, menu);
 		tablesManager.setStatus(tableID, TableStatus.occupied);
@@ -324,7 +323,7 @@ public class Restaurant {
 		}
 		switch (opt) {
 		case 1:
-			System.out.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
+			System.out.println("Choose items from a la carte (Enter 0 when you are done. Enter -1 to cancel order):");
 			menu.viewMenuItem();
 			ArrayList<String> itemIDs = new ArrayList<String>();
 			Integer itemID;
@@ -332,15 +331,15 @@ public class Restaurant {
 				itemID = sc.nextInt();
 				if (itemID == -1)
 					return;
-				if (menu.isValid(itemID.toString())) {
+				if (itemID != 0) {
 					itemIDs.add(itemID.toString());
 				}
-			} while (itemID != 1000);
+			} while (itemID != 0);
 			orderHistory.addItemsToOrder(orderID, itemIDs, menu);
 			return;
 		case 2:
 			System.out.println(
-					"Choose packages from package list (Enter 1000 when you are done. Enter -1 to cancel order):");
+					"Choose packages from package list (Enter 0 when you are done. Enter -1 to cancel order):");
 			menu.viewMenuItem();
 			ArrayList<Integer> packageIDs = new ArrayList<Integer>();
 			Integer packageID;
@@ -348,10 +347,10 @@ public class Restaurant {
 				packageID = sc.nextInt();
 				if (packageID == -1)
 					return;
-				if (menu.isValid(packageID)) {
+				if (packageID != 0) {
 					packageIDs.add(packageID);
 				}
-			} while (packageID != 1000);
+			} while (packageID != 0);
 			orderHistory.addPackagesToOrder(orderID, packageIDs, menu);
 			return;
 		case 3:

@@ -12,22 +12,12 @@ import Helper.IOHandler;
  */
 public class OrderHistory {
 	private ArrayList<Order> ordersList;
-	/**
-	 * constructor
-	 */
+	
 	OrderHistory(){
 		ordersList = new ArrayList<Order>();
 		ordersList = (ArrayList<Order>)IOHandler.readSerializedObject("OrdersHistory.db");
 		System.out.println(ordersList);
 	}
-	/**
-	 * create new order and add it into the list
-	 * @param staffID
-	 * @param tableID
-	 * @param itemIDs
-	 * @param packageIDs
-	 * @param menu
-	 */
 	public void newOrder(int staffID, int tableID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs, Menu menu){
 		if (itemIDs.isEmpty() && packageIDs.isEmpty()){
 			System.out.println("Please choose at least 1 item from the menu!!!");

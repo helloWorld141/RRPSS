@@ -261,7 +261,7 @@ public class Restaurant {
 			itemID = SafeInput.safeRead(itemID, sc);
 			if (itemID == -1)
 				return;
-			if (menu.isValid(itemID.toString())) {
+			if (menu.isValid(itemID)) {
 				itemIDs.add(itemID.toString());
 			}
 		} while (itemID != 1000);
@@ -348,7 +348,7 @@ public class Restaurant {
 				packageID = sc.nextInt();
 				if (packageID == -1)
 					return;
-				if (menu.isValid(packageID)) {
+				if (packageID != 0) {
 					packageIDs.add(packageID);
 				}
 			} while (packageID != 1000);
