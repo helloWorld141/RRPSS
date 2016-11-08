@@ -1,0 +1,195 @@
+package Application;
+import java.util.*;
+import Helper.IOHandler;
+
+import java.io.*;
+
+public class Menu implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private TreeMap<String, ArrayList<MenuItem>> menuItemList;
+	private ArrayList<PromotionalPackage> promotionalPackageList;
+	
+	/*
+	private ArrayList<MenuItem> mainCourse;
+	private ArrayList<MenuItem> drinks;
+	private ArrayList<MenuItem> desserts;
+	*/
+	public Menu(){
+		promotionalPackageList = new ArrayList<PromotionalPackage>();
+		menuItemList = new TreeMap<String, ArrayList<MenuItem>>();
+		menuItemList.put("main", new ArrayList<MenuItem>());
+		menuItemList.put("drinks", new ArrayList<MenuItem>());
+		menuItemList.put("desserts", new ArrayList<MenuItem>());
+		promotionalPackageList = (ArrayList) IOHandler.readSerializedObject("PromoPackages.db");
+		ArrayList<MenuItem> items = (ArrayList) IOHandler.readSerializedObject("Items.db");
+		for (int i=0; i<items.size();i++){
+			switch (items.get(i).getID().charAt(0)){
+			case '1':
+				menuItemList.get("main").add(items.get(i));
+				break;
+			case '2':
+				menuItemList.get("drinks").add(items.get(i));
+				break;
+			case '3':
+				menuItemList.get("desserts").add(items.get(i));
+				break;
+			}
+		}
+		System.out.println(menuItemList);
+		System.out.println(promotionalPackageList);
+	}
+	
+	public void updateItemName(String ID, String newName){
+		char type = ID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
+		for(int i=0;i<menuItemList.get(courseType).size();i++){
+			if (menuItemList.get(courseType).get(i).getID().equals(ID)){
+				menuItemList.get(courseType).get(i).setName(newName);
+				break;
+			}
+		}
+	}
+	public void updateItemPrice(String ID, double newPrice){
+		char type = ID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
+		for(int i=0;i<menuItemList.get(courseType).size();i++){
+			if (menuItemList.get(courseType).get(i).getID().equals(ID)){
+				menuItemList.get(courseType).get(i).setPrice(newPrice);
+				break;
+			}
+		}
+	}
+	public void updateItemDescription(String ID, String newDescription){
+		char type = ID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
+		for(int i=0;i<menuItemList.get(courseType).size();i++){
+			if (menuItemList.get(courseType).get(i).getID().equals(ID)){
+				menuItemList.get(courseType).get(i).setDescription(newDescription);
+				break;
+			}
+		}
+	}
+	
+	public void createMenuItem(int type, String name, String description, double price){
+		CourseType courseType = CourseType.values()[type-1];
+		String ID = Integer.valueOf(type).toString();
+		ID = ID.concat(Integer.valueOf(menuItemList.get(courseType.toString()).size()).toString());
+		menuItemList.get(courseType.toString()).add(new MenuItem(ID , courseType, name, description, price));
+		System.out.println(menuItemList.get("main"));
+	}
+	public void removeMenuItem(String ID){
+		char type = ID.charAt(0);
+		int i=0;
+		String courseType = CourseType.values()[type-49].toString();
+		for(i=0;i<menuItemList.get(courseType).size();i++){
+			if (menuItemList.get(courseType).get(i).getID().equals(ID)){
+				menuItemList.get(courseType).remove(i);
+				break;
+			}
+		}
+		
+		for (;i<menuItemList.get(courseType).size();i++){
+			Integer newID = Integer.getInteger(menuItemList.get(courseType).get(i).getID())-1;
+			menuItemList.get(courseType).get(i).setID(newID.toString());
+		}
+	}
+	
+	public void createPromotionalPackage(String name, double price){
+		int id = promotionalPackageList.size();
+		promotionalPackageList.add(new PromotionalPackage(id, name, price));
+	}
+	public void removePromotionalPackage(int packageNo){
+		promotionalPackageList.remove(packageNo);
+		for (int i=packageNo; i<promotionalPackageList.size(); i++){
+			promotionalPackageList.get(i).setID(i);
+		}
+	}
+	
+	public void updatePackageName(int packageNo, String newName){
+		promotionalPackageList.get(packageNo).setPackageName(newName);
+	}
+	public void updatePackagePrice(int packageNo, double newPrice){
+		promotionalPackageList.get(packageNo).setPackagePrice(newPrice);
+	}
+	
+	public void addItemToPackage(int packageNo, String itemID){
+		char type = itemID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
+		for(int i=0;i<menuItemList.get(courseType).size();i++){
+			if (menuItemList.get(courseType).get(i).getID().equals(itemID)){
+				promotionalPackageList.get(packageNo).addItem(menuItemList.get(courseType).get(i));
+				break;
+			}
+		}
+	}
+	public void addItemsToPackage(int packageNo, ArrayList<String> itemIDs, double newPrice){
+		for (int i=0; i<itemIDs.size(); i++){
+			addItemToPackage(packageNo, itemIDs.get(i));
+		}
+		updatePackagePrice(packageNo, newPrice);
+	}
+	public void removeItemFromPackage(int packageNo, String itemID){
+		promotionalPackageList.get(packageNo).removeItem(itemID);
+	}
+	public void removeItemsFromPackage(int packageNo, ArrayList<String> itemIDs, double newPrice){
+		for (int i=0; i<itemIDs.size(); i++){
+			removeItemFromPackage(packageNo, itemIDs.get(i));
+		}
+		updatePackagePrice(packageNo, newPrice);
+	}
+	
+	public MenuItem getMenuItem(String itemID){
+		char type = itemID.charAt(0);
+		String courseType = CourseType.values()[type-49].toString();
+		for(int i=0;i<menuItemList.get(courseType).size();i++){
+			if (menuItemList.get(courseType).get(i).getID().equals(itemID)){
+				return menuItemList.get(courseType).get(i);
+			}
+		}
+		return null;
+	}
+	public PromotionalPackage getPackage(int packageNo){
+		return promotionalPackageList.get(packageNo);
+	}
+
+	public void viewMenuItem(){
+		System.out.println("\n+ Main Course:");
+		ArrayList<MenuItem> list = menuItemList.get("main");
+		for (int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println("\n+ Drinks:");
+		list = menuItemList.get("drinks");
+		for (int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println("\n+ Desserts:");
+		list = menuItemList.get("desserts");
+		for (int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+		System.out.println("\n+ Promotional packages:");
+		for (int i=0;i<promotionalPackageList.size();i++){
+			System.out.println(promotionalPackageList.get(i));
+		}
+	}
+	
+	public void viewPackages(){
+		//TODO
+		//print out all packages in the current menu
+	}
+	public boolean isValid(int itemID){
+		
+	}
+	public void cleanUp(){
+		IOHandler.writeSerializedObject("PromoPackages.db", promotionalPackageList);
+		ArrayList<MenuItem> list = new ArrayList<MenuItem>();
+		list.addAll(menuItemList.get("main"));
+		list.addAll(menuItemList.get("drinks"));
+		list.addAll(menuItemList.get("desserts"));
+		IOHandler.writeSerializedObject("Items.db", list);
+	}
+}

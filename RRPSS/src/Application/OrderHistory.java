@@ -1,17 +1,21 @@
 package Application;
-//For the purpose of managing orders history and revenue report
-import java.io.*;
+
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Date;
 
 import Helper.IOHandler;
 
+/**
+ * @author Nguyen Dang Duy Nghia
+ * managing orders history and revenue report
+ */
 public class OrderHistory {
 	private ArrayList<Order> ordersList;
-	OrderHistory() throws IOException{
+	
+	OrderHistory(){
 		ordersList = new ArrayList<Order>();
-		ordersList = (ArrayList)IOHandler.readSerializedObject("OrdersHistory.db");
+		ordersList = (ArrayList<Order>)IOHandler.readSerializedObject("OrdersHistory.db");
 		System.out.println(ordersList);
 	}
 	public void newOrder(int staffID, int tableID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs, Menu menu){
@@ -34,13 +38,17 @@ public class OrderHistory {
 	public boolean isValid(int orderID){
 		return (orderID < ordersList.size() && orderID >=0);
 	}
+	public boolean canAdd(int orderID){
+		return (isValid(orderID) && 
+				!getOrder(orderID).isPaid());
+	}
 	public Order getOrder(int orderID){
 		return ordersList.get(orderID);
 	}
 	public void viewOrder(int orderID){
 		System.out.println(getOrder(orderID));
 	}
-	//print out 10 recent orders' header
+
 	public void show(){
 		for (Order order:ordersList){
 			if (!order.isPaid()){
@@ -74,7 +82,11 @@ public class OrderHistory {
 	public void removePackagesFromOrder(int orderID, ArrayList<Integer> packageIDs){
 		ordersList.get(orderID).removePackages(packageIDs);
 	}
-	
+	/**
+	 * print order invoice when payment is made.
+	 * once invoice is printed, the order is considered to be paid
+	 * @param orderID
+	 */
 	public void printOrderInvoice(int orderID){
 		if (orderID > ordersList.size() || orderID < 0){
 			System.out.println("Invalid ID");

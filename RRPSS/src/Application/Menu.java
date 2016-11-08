@@ -41,7 +41,12 @@ public class Menu implements Serializable{
 		System.out.println(menuItemList);
 		System.out.println(promotionalPackageList);
 	}
-	
+	/**
+	 * change the name of an existing item in ala carte list
+	 * the id is guaranteed to be valid
+	 * @param ID
+	 * @param newName
+	 */
 	public void updateItemName(String ID, String newName){
 		char type = ID.charAt(0);
 		String courseType = CourseType.values()[type-49].toString();
@@ -52,6 +57,12 @@ public class Menu implements Serializable{
 			}
 		}
 	}
+	/**
+	 * change the price of an item in ala carte list.
+	 * the id is guaranteed to be valid
+	 * @param ID
+	 * @param newPrice
+	 */
 	public void updateItemPrice(String ID, double newPrice){
 		char type = ID.charAt(0);
 		String courseType = CourseType.values()[type-49].toString();
@@ -62,6 +73,11 @@ public class Menu implements Serializable{
 			}
 		}
 	}
+	/**
+	 * change the description of an existing item in ala carte list
+	 * @param ID
+	 * @param newDescription
+	 */
 	public void updateItemDescription(String ID, String newDescription){
 		char type = ID.charAt(0);
 		String courseType = CourseType.values()[type-49].toString();
@@ -72,7 +88,13 @@ public class Menu implements Serializable{
 			}
 		}
 	}
-	
+	/**
+	 * create new menu item in ala carte list
+	 * @param type
+	 * @param name
+	 * @param description
+	 * @param price
+	 */
 	public void createMenuItem(int type, String name, String description, double price){
 		CourseType courseType = CourseType.values()[type-1];
 		String ID = Integer.valueOf(type).toString();
@@ -80,6 +102,10 @@ public class Menu implements Serializable{
 		menuItemList.get(courseType.toString()).add(new MenuItem(ID , courseType, name, description, price));
 		System.out.println(menuItemList.get("main"));
 	}
+	/**
+	 * remove item from menu if ID is valid. ignore if ID is not valild
+	 * @param ID
+	 */
 	public void removeMenuItem(String ID){
 		char type = ID.charAt(0);
 		int i=0;
@@ -96,25 +122,48 @@ public class Menu implements Serializable{
 			menuItemList.get(courseType).get(i).setID(newID.toString());
 		}
 	}
-	
+	/**
+	 * create new promotional package with name and price
+	 * @param name
+	 * @param price
+	 */
 	public void createPromotionalPackage(String name, double price){
 		int id = promotionalPackageList.size();
 		promotionalPackageList.add(new PromotionalPackage(id, name, price));
 	}
+	/**
+	 * remove an existing promotional package. ignore if packageNo is invalid
+	 * @param packageNo
+	 */
 	public void removePromotionalPackage(int packageNo){
-		promotionalPackageList.remove(packageNo);
-		for (int i=packageNo; i<promotionalPackageList.size(); i++){
-			promotionalPackageList.get(i).setID(i);
+		if (isValid(packageNo)){
+			promotionalPackageList.remove(packageNo);
+			for (int i=packageNo; i<promotionalPackageList.size(); i++){
+				promotionalPackageList.get(i).setID(i);
+			}
 		}
 	}
-	
+	/**
+	 * change the name of a package. the existence of the package and item are guaranteed 
+	 * @param packageNo
+	 * @param newName
+	 */
 	public void updatePackageName(int packageNo, String newName){
 		promotionalPackageList.get(packageNo).setPackageName(newName);
 	}
+	/**
+	 * change the price of a package. the existence of the package and item are guaranteed 
+	 * @param packageNo
+	 * @param newPrice
+	 */
 	public void updatePackagePrice(int packageNo, double newPrice){
 		promotionalPackageList.get(packageNo).setPackagePrice(newPrice);
 	}
-	
+	/**
+	 * add new item to an existing package. the existence of the package and item are guaranteed 
+	 * @param packageNo
+	 * @param itemID
+	 */
 	public void addItemToPackage(int packageNo, String itemID){
 		char type = itemID.charAt(0);
 		String courseType = CourseType.values()[type-49].toString();
@@ -125,22 +174,43 @@ public class Menu implements Serializable{
 			}
 		}
 	}
+	/**
+	 * add a list of items into an existing package. the existence of the package and item are guaranteed
+	 * @param packageNo
+	 * @param itemIDs
+	 * @param newPrice
+	 */
 	public void addItemsToPackage(int packageNo, ArrayList<String> itemIDs, double newPrice){
 		for (int i=0; i<itemIDs.size(); i++){
 			addItemToPackage(packageNo, itemIDs.get(i));
 		}
 		updatePackagePrice(packageNo, newPrice);
 	}
+	/**
+	 * remove an item from an existing package. the existence of the package and item are guaranteed 
+	 * @param packageNo
+	 * @param itemID
+	 */
 	public void removeItemFromPackage(int packageNo, String itemID){
 		promotionalPackageList.get(packageNo).removeItem(itemID);
 	}
+	/**
+	 * remove a list of items from an existing package. the existence of the package and item are guaranteed
+	 * @param packageNo
+	 * @param itemIDs
+	 * @param newPrice
+	 */
 	public void removeItemsFromPackage(int packageNo, ArrayList<String> itemIDs, double newPrice){
 		for (int i=0; i<itemIDs.size(); i++){
 			removeItemFromPackage(packageNo, itemIDs.get(i));
 		}
 		updatePackagePrice(packageNo, newPrice);
 	}
-	
+	/**
+	 * get a menu item using its ID. return null if no iteme is found
+	 * @param itemID
+	 * @return
+	 */
 	public MenuItem getMenuItem(String itemID){
 		char type = itemID.charAt(0);
 		String courseType = CourseType.values()[type-49].toString();
@@ -151,10 +221,21 @@ public class Menu implements Serializable{
 		}
 		return null;
 	}
+	/**
+	 * get a promotional package using its id. return null if no package is found
+	 * @param packageNo
+	 * @return
+	 */
 	public PromotionalPackage getPackage(int packageNo){
-		return promotionalPackageList.get(packageNo);
+		try {
+			return promotionalPackageList.get(packageNo);
+		} catch (ArrayIndexOutOfBoundsException e){
+			return null;
+		}
 	}
-
+	/**
+	 * print all items in ala carte list
+	 */
 	public void viewMenuItem(){
 		System.out.println("\n+ Main Course:");
 		ArrayList<MenuItem> list = menuItemList.get("main");
@@ -171,17 +252,46 @@ public class Menu implements Serializable{
 		for (int i=0;i<list.size();i++){
 			System.out.println(list.get(i));
 		}
+	}
+	/**
+	 * print all promotional packages
+	 */
+	public void viewPackages(){
 		System.out.println("\n+ Promotional packages:");
 		for (int i=0;i<promotionalPackageList.size();i++){
 			System.out.println(promotionalPackageList.get(i));
 		}
 	}
-	
-	public void viewPackages(){
-		//TODO
-		//print out all packages in the current menu
+	/**
+	 * print all items from a promotional package. the existence of the package is guaranteed
+	 * @param packageNo
+	 */
+	public void viewItemsFromPackage(int packageNo){
+		System.out.println("Package contains: ");
+		ArrayList<MenuItem> items = promotionalPackageList.get(packageNo).getitemList();
+		for (MenuItem item:items){
+			System.out.println(item);
+		}
 	}
-	
+	/**
+	 * check if a menu item id exist
+	 * @param itemID
+	 * @return
+	 */
+	public boolean isValid(String itemID){
+		return !(getMenuItem(itemID) == null);
+	}
+	/**
+	 * check if a package id exist
+	 * @param packageID
+	 * @return
+	 */
+	public boolean isValid(int packageID){
+		return !(getPackage(packageID) == null);
+	}
+	/**
+	 * save data back into files
+	 */
 	public void cleanUp(){
 		IOHandler.writeSerializedObject("PromoPackages.db", promotionalPackageList);
 		ArrayList<MenuItem> list = new ArrayList<MenuItem>();

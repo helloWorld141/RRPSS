@@ -50,8 +50,10 @@ public class PromotionalPackage implements Serializable{
 	}
 	public void removeItem(String itemID){
 		for (int i=0;i<itemList.size(); i++){
-			if (itemList.get(i).getID().equals(itemID))
+			if (itemList.get(i).getID().equals(itemID)){
 				itemList.remove(i);
+				return;
+			}
 		}
 	}
 	

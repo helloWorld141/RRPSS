@@ -69,7 +69,10 @@ public class CreateMockDB {
 	public static void createMockPackages(ArrayList<PromotionalPackage> pkList){
 		
 	}
-	
+	/**
+	 * 
+	 * @param itList
+	 */
 	public static void createMockItems(ArrayList<MenuItem> itList){
 		Integer i = 0;
 		String main = "Main Course ";
