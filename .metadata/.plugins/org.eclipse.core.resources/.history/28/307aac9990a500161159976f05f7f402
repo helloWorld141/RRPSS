@@ -52,7 +52,7 @@ public class Reserve implements Serializable{
 				break;
 			}
 		}
-		if (res==null) return -1;
+		if (res==null) return new ArrayList<Integer>();
 		return res.getTableID();
 	}
 	

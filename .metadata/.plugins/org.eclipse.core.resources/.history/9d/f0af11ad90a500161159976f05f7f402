@@ -458,9 +458,9 @@ public class Restaurant {
 		LocalDateTime arrivalTime = LocalDateTime.ofInstant(arrTime.toInstant(), ZoneId.systemDefault());
 		System.out.println("Enter number of people:");
 		int pax = sc.nextInt();
-		int reservedTable = reserve.newReservation(contact, arrivalTime, pax,
+		int reservedTables = reserve.newReservation(contact, arrivalTime, pax,
 				tablesManager.getAvailTables(reserve));
-		tablesManager.reserve(reservedTable);
+		tablesManager.reserve(reservedTables);
 		System.out.println("Reserve successfully!");
 	}
 	/**
@@ -487,8 +487,8 @@ public class Restaurant {
 		if (reservation == null)
 			System.out.println("This number has not reserved.");
 		else {
-			int releasedTable = reserve.removeReservation(reservation.getContact());
-			tablesManager.release(releasedTable, reservation.getID());
+			ArrayList<Integer> releasedTables = reserve.removeReservation(reservation.getContact());
+			tablesManager.release(releasedTables, reservation.getID());
 		}
 		System.out.println("Reservation removed successfully!");
 	}

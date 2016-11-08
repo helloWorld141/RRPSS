@@ -52,8 +52,8 @@ public class Reserve implements Serializable{
 				break;
 			}
 		}
-		if (res==null) return -1;
-		return res.getTableID();
+		if (res==null) return new ArrayList<Integer>();
+		return res.getTableIDs();
 	}
 	
 	@Override

@@ -34,10 +34,10 @@ public class Reservation implements Serializable{
 		this.contact = contact;
 	}
 	public int getTableID(){
-		return this.tableID;
+		return this.tableIDs;
 	}
 	public void assign(int tableID){// check validity of tableID in upper layer 
-		this.tableID= tableID;
+		this.tableIDs.add(tableID);
 	}
 	//return ids of tables chosen
 	

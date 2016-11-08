@@ -37,7 +37,7 @@ public class Reservation implements Serializable{
 		return this.tableID;
 	}
 	public void assign(int tableID){// check validity of tableID in upper layer 
-		this.tableID= tableID;
+		this.tableIDs.add(tableID);
 	}
 	//return ids of tables chosen
 	

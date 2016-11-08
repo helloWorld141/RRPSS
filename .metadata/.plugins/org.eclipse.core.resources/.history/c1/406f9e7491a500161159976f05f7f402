@@ -48,13 +48,17 @@ public class TablesManager {
 		tableList.get(tableID).setStatus(status);
 	}
 
-	public void reserve(int tableID) {
-		setStatus(tableID, TableStatus.reserved);
+	public void reserve(int tableIDs) {
+		for (int id : tableIDs) {
+			setStatus(id, TableStatus.reserved);
+		}
 	}
 
-	public void release(int tableID, String reservationID) {
-		setStatus(tableID, TableStatus.vacated);
-		tableList.get(tableID).removeReservation(reservationID);
+	public void release(ArrayList<Integer> tableIDs, String reservationID) {
+		for (int id : tableIDs) {
+			setStatus(id, TableStatus.vacated);
+			tableList.get(id).removeReservation(reservationID);
+		}
 	}
 
 	public void cleanUp() {

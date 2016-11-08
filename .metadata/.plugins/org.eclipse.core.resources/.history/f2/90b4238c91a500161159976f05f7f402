@@ -488,7 +488,7 @@ public class Restaurant {
 			System.out.println("This number has not reserved.");
 		else {
 			int releasedTable = reserve.removeReservation(reservation.getContact());
-			tablesManager.release(releasedTable, reservation.getID());
+			tablesManager.release(releasedTables, reservation.getID());
 		}
 		System.out.println("Reservation removed successfully!");
 	}
