@@ -8,15 +8,38 @@ import Helper.TimeHandler;
 import java.io.*;
 import java.time.LocalDateTime;
 
+/**
+ * @author Nguyen Dang Duy Nghia
+ *
+ */
 public class TablesManager {
+	/**
+	 * store all talbes
+	 */
 	private ArrayList<Table> tableList;
-
+	/**
+	 * constructor
+	 * load all data from files
+	 */
 	public TablesManager() {
 		tableList = new ArrayList<Table>();
 		tableList = (ArrayList) IOHandler.readSerializedObject("Tables.db");
 		System.out.println(tableList);
 	}
-
+	/**
+	 * get the table with a specific ID
+	 * @param tableID
+	 * @return
+	 */
+	public Table getTable(int tableID){
+		if (tableID < 0 || tableID > 29) return null;
+		return tableList.get(tableID);
+	}
+	/**
+	 * get all the available tables at the time
+	 * @param reserve
+	 * @return
+	 */
 	public ArrayList<Table> getAvailTables(Reserve reserve) {
 		ArrayList<Table> availTables = new ArrayList<Table>();
 		for (Table table : tableList)
@@ -24,39 +47,64 @@ public class TablesManager {
 				availTables.add(table);
 		return availTables;
 	}
-
+	/**
+	 * print all available tables at the time 
+	 * @param reserve
+	 */
 	public void showAvailableTables(Reserve reserve) {
 		System.out.println(getAvailTables(reserve));
 	}
-
+	/**
+	 * check if a table is available at the time
+	 * @param tableID
+	 * @param reserve
+	 * @return
+	 */
 	public boolean isAvail(int tableID, Reserve reserve) {
 		if (tableID < 0 || tableID > 29)
 			return false;
-		Table table = tableList.get(tableID);
+		Table table = getTable(tableID);
 		ArrayList<Reservation> reservations = reserve.getReservations(table.getReservationIDs());
 		LocalDateTime now = LocalDateTime.now();
 		for (Reservation reservation : reservations) {
 			if (now.toLocalDate().equals(reservation.getTime().toLocalDate()))
 				if (TimeHandler.whatSession(reservation.getTime().toLocalTime())
 						.equals(TimeHandler.whatSession(now.toLocalTime())))
+				{
+					table.setStatus(TableStatus.reserved);
 					return false;
+				}
 		}
-		return tableList.get(tableID).getStatus().equals(TableStatus.vacated);
+		return getTable(tableID).getStatus().equals(TableStatus.vacated);
 	}
-
+	/**
+	 * set status for a specific table
+	 * @param tableID
+	 * @param status
+	 */
 	public void setStatus(int tableID, TableStatus status) {
-		tableList.get(tableID).setStatus(status);
+		getTable(tableID).setStatus(status);
 	}
-
-	public void reserve(int tableID) {
+	/**
+	 * reserve a table with a specific tableID
+	 * @param tableID
+	 */
+	public void reserve(int tableID, String reservationID) {
 		setStatus(tableID, TableStatus.reserved);
+		getTable(tableID).addReservation(reservationID);
 	}
-
+	/**
+	 * 
+	 * @param tableID
+	 * @param reservationID
+	 */
 	public void release(int tableID, String reservationID) {
 		setStatus(tableID, TableStatus.vacated);
-		tableList.get(tableID).removeReservation(reservationID);
+		getTable(tableID).removeReservation(reservationID);
 	}
-
+	/**
+	 * save data back into files
+	 */
 	public void cleanUp() {
 		IOHandler.writeSerializedObject("Tables.db", tableList);
 	}

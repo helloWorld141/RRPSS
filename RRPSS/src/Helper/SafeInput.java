@@ -6,9 +6,21 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Nguyen Dang Duy Nghia
+ *
+ */
 public class SafeInput {
+	/**
+	 * constructor
+	 */
 	SafeInput(){}
-	
+	/**
+	 * read and return an integer from input, handle InputMismatchExceptionsss
+	 * @param in
+	 * @param sc
+	 * @return
+	 */
 	public static int safeRead(int in, Scanner sc){
 		try {
 			in = sc.nextInt();
@@ -19,6 +31,12 @@ public class SafeInput {
 		}
 		return in;
 	}
+	/**
+	 * read and return a double from input, handle InputMismatchException
+	 * @param in
+	 * @param sc
+	 * @return
+	 */
 	public static double safeRead(double in, Scanner sc){
 		try {
 			in = sc.nextDouble();
@@ -29,7 +47,13 @@ public class SafeInput {
 		}
 		return in;
 	}
-	
+	/**
+	 * read a String from input and return a Date with specified format, handle ParseException
+	 * @param arrTime
+	 * @param sc
+	 * @param formatter
+	 * @return
+	 */
 	public static Date safeRead(Date arrTime, Scanner sc, DateFormat formatter){
 		String arrival = sc.nextLine();
 		try {

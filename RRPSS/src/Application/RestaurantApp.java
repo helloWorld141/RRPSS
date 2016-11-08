@@ -82,7 +82,7 @@ public class RestaurantApp {
 				+ "\n(9) Cancel reservation"
 				+ "\n(10) Check reservation" 
 				+ "\n(11) Show available tables" 
-				+ "\n(12) Save date" 
+				+ "\n(12) Save data" 
 				+ "\n(13) Exit");
 		return true;
 	}

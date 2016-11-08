@@ -6,13 +6,13 @@ import java.time.*;
 import java.util.*;
 public class Test {
 	public static void main (String[] args){
-		Scanner sc = new Scanner(System.in);
-		System.out.println("enter a string:");
-		String in = new String();
-		while (!in.equals("-1")){
-			System.out.println("try again");
-			in = sc.next();
-		}
-		System.out.println("done");
+		System.out.println(Duration.between(LocalDateTime.of(2016, 12, 1, 1, 0), LocalDateTime.now())
+				.toDays());
+	}
+	
+	public static Table getTable(int id, ArrayList<Table> tables){
+		for (Table table:tables)
+			if (table.getTableID() == id) return table;
+		return null;
 	}
 }

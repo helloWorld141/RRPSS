@@ -245,13 +245,38 @@ public class Restaurant {
 				return;
 		}
 		int tableID = -1;
-		while (!tableAvail(tableID)) {
-			System.out.println("Enter available Table ID (Enter -1 to cancel order)");
-			showAvailableTables();
-			tableID = SafeInput.safeRead(tableID, sc);
-			if (tableID == -1)
-				return;
+		
+		System.out.println("Reservation?"
+				+ "\n(1) Yes"
+				+ "\n(2) No");
+		int opt = 0;
+		opt = SafeInput.safeRead(opt, sc);
+		if (opt == -1) return;
+		switch(opt){
+		case 1:
+			System.out.println("Enter contact number used to book");
+			String contact = sc.next();
+			Reservation reservation = reserve.getReservation(contact);
+			if (reservation == null) {
+				System.out.println("This number has not reserved.");
+				break;
+			}
+			tableID = reservation.getTableID();
+			removeReservation(reservation);
+			break;
+		case 2:
+			while (!tableAvail(tableID)) {
+				System.out.println("Enter available Table ID (Enter -1 to cancel order)");
+				showAvailableTables();
+				tableID = SafeInput.safeRead(tableID, sc);
+				if (tableID == -1)
+					return;
+			}
+			break;
+		default:
+			System.out.println("invalid option");
 		}
+		
 		
 		System.out.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
 		menu.viewMenuItem();
@@ -382,6 +407,7 @@ public class Restaurant {
 			if (orderHistory.getOrder(orderID).isItemValid(id.toString()))
 				items.add(id.toString());
 		}
+		orderHistory.removeItemFromOrder(orderID, items);
 		
 		System.out.println("Choose packages to remove (1000 when finish):");
 		ArrayList<Integer> packages = new ArrayList<Integer>();
@@ -391,8 +417,7 @@ public class Restaurant {
 			if (orderHistory.getOrder(orderID).isPackageValid(id))
 				packages.add(id);
 		}
-		orderHistory.removeFromOrder(orderID, items, packages);
-
+		orderHistory.removePackagesFromOrder(orderID, packages);
 	}
 	/**
 	 * check if a table is available for booking or order
@@ -400,6 +425,9 @@ public class Restaurant {
 	 * @return
 	 */
 	public boolean tableAvail(int tableID) {
+		Table table = tablesManager.getTable(tableID);
+		ArrayList<Reservation> reservations = 
+				reserve.getReservations(table.getReservationIDs());
 		return tablesManager.isAvail(tableID, reserve);
 	}
 	/**
@@ -458,26 +486,44 @@ public class Restaurant {
 	 * @param sc - Read input from console
 	 */
 	public void createReservation(Scanner sc) {
-		System.out.println("Enter enter contact number:");
+		updateReservation();
+		System.out.println("Enter contact number:");
 		String contact = sc.next();
-		System.out.println("Enter arrival time (dd/MM/yy HH:mm):");
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 		Date arrTime = new Date();
+		LocalDateTime arrivalTime;
 		sc.nextLine();
-		arrTime = SafeInput.safeRead(arrTime, sc, formatter);
-		LocalDateTime arrivalTime = LocalDateTime.ofInstant(arrTime.toInstant(), ZoneId.systemDefault());
+		do{
+			System.out.println("Enter arrival time (dd/MM/yy HH:mm):");
+			arrTime = SafeInput.safeRead(arrTime, sc, formatter);
+			arrivalTime = LocalDateTime.ofInstant(arrTime.toInstant(), ZoneId.systemDefault());
+		} while (!TimeHandler.isValidToBook(arrivalTime));
 		System.out.println("Enter number of people:");
 		int pax = sc.nextInt();
-		int reservedTable = reserve.newReservation(contact, arrivalTime, pax,
+		Reservation reservation = reserve.newReservation(contact, arrivalTime, pax,
 				tablesManager.getAvailTables(reserve));
-		tablesManager.reserve(reservedTable);
-		System.out.println("Reserve successfully!");
+		if (reservation != null) {
+			tablesManager.reserve(reservation.getTableID(), reservation.getID());
+			System.out.println("Reserve successfully!");
+		}else
+		System.out.println("Do not have enough seats!");
+	}
+	/**
+	 * update the reservations by removing all out-dated reservations
+	 * release all tables associated
+	 */
+	public void updateReservation(){
+		TreeMap<Integer, String> tableRelease = reserve.updateReservation();
+		for (Integer id:tableRelease.keySet()){
+			tablesManager.release(id, tableRelease.get(id));
+		}
 	}
 	/**
 	 * check if a reservation exist
 	 * @param sc - Read input from console
 	 */
 	public void checkReservation(Scanner sc) {
+		updateReservation();
 		System.out.println("Enter contact number used to book");
 		String contact = sc.next();
 		Reservation reservation = reserve.getReservation(contact);
@@ -488,6 +534,7 @@ public class Restaurant {
 	}
 	/**
 	 * remove existing reservation
+	 * release the table associated with it
 	 * @param sc
 	 */
 	public void removeReservation(Scanner sc) {
@@ -501,6 +548,15 @@ public class Restaurant {
 			tablesManager.release(releasedTable, reservation.getID());
 		}
 		System.out.println("Reservation removed successfully!");
+	}
+	/**
+	 * remove an existing reservation
+	 * release the table associated with it
+	 * @param reservation
+	 */
+	public void removeReservation(Reservation reservation) {
+		int releasedTable = reserve.removeReservation(reservation.getContact());
+		tablesManager.release(releasedTable, reservation.getID());
 	}
 	/**
 	 * save data back to files

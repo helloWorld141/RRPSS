@@ -1,0 +1,16 @@
+package Application;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.util.*;
+public class Test {
+	public static void main (String[] args){
+		ArrayList<Table> tables = new ArrayList<Table>();
+		tables.add(new Table(0, 10));
+		tables.add(new Table(1, 20));
+		System.out.println(tables);
+		
+		
+	}
+}

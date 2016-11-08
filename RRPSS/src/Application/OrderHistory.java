@@ -14,6 +14,7 @@ public class OrderHistory {
 	private ArrayList<Order> ordersList;
 	/**
 	 * constructor
+	 * load all orders in data file
 	 */
 	OrderHistory(){
 		ordersList = new ArrayList<Order>();
@@ -45,20 +46,41 @@ public class OrderHistory {
 		}
 		ordersList.add(new Order(orderID, staffID, tableID, timeStamp, menuItems, packages));
 	}
+	/**
+	 * check if an order with id orderID exists
+	 * @param orderID
+	 * @return
+	 */
 	public boolean isValid(int orderID){
 		return (orderID < ordersList.size() && orderID >=0);
 	}
+	/**
+	 * check if an order can have items and packages added to it 
+	 * @param orderID
+	 * @return
+	 */
 	public boolean canAdd(int orderID){
 		return (isValid(orderID) && 
 				!getOrder(orderID).isPaid());
 	}
+	/**
+	 * get an order order with a specific orderID
+	 * @param orderID
+	 * @return
+	 */
 	public Order getOrder(int orderID){
 		return ordersList.get(orderID);
 	}
+	/**
+	 * print out an order with a specific orderID
+	 * @param orderID
+	 */
 	public void viewOrder(int orderID){
 		System.out.println(getOrder(orderID));
 	}
-
+	/**
+	 * print out all order that have not been paid
+	 */
 	public void show(){
 		for (Order order:ordersList){
 			if (!order.isPaid()){
@@ -66,12 +88,24 @@ public class OrderHistory {
 			}
 		}
 	}
+	/**
+	 * add menu items into an existing order
+	 * @param orderID
+	 * @param itemIDs
+	 * @param menu
+	 */
 	public void addItemsToOrder(int orderID, ArrayList<String> itemIDs, Menu menu){
 		ArrayList<MenuItem> items = new ArrayList<MenuItem>();
 		for (String id:itemIDs)
 			items.add(menu.getMenuItem(id));
 		ordersList.get(orderID).addMenuItems(items);
 	}
+	/**
+	 * add menu packages into an existing order
+	 * @param orderID
+	 * @param packageIDs
+	 * @param menu
+	 */
 	public void addPackagesToOrder(int orderID, ArrayList<Integer> packageIDs, Menu menu){
 		ArrayList<PromotionalPackage> packages = new ArrayList<PromotionalPackage>();
 		for(Integer id:packageIDs){
@@ -79,13 +113,19 @@ public class OrderHistory {
 		}
 		ordersList.get(orderID).addPromotionalPackges(packages);
 	}
-	public void removeFromOrder(int orderID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs){		
-		removeItemFromOrder(orderID, itemIDs);
-		removePackagesFromOrder(orderID, packageIDs);
-	}
+	/**
+	 * remove items from an existing order
+	 * @param orderID
+	 * @param itemIDs
+	 */
 	public void removeItemFromOrder(int orderID, ArrayList<String> itemIDs){
 		ordersList.get(orderID).removeItems(itemIDs);
 	}
+	/**
+	 * remove packages from an existing order
+	 * @param orderID
+	 * @param packageIDs
+	 */
 	public void removePackagesFromOrder(int orderID, ArrayList<Integer> packageIDs){
 		ordersList.get(orderID).removePackages(packageIDs);
 	}
@@ -102,6 +142,10 @@ public class OrderHistory {
 		ordersList.get(orderID).printOrderInvoice();
 		ordersList.get(orderID).pay();
 	}
+	/**
+	 * print revenue report by month
+	 * @param month
+	 */
 	public void printRevenueReport(Month month){
 		double totalRevenue = 0;
 		System.out.println("Revenue report on " + month);
@@ -113,6 +157,10 @@ public class OrderHistory {
 		}
 		System.out.println("Total Revenue : "+ totalRevenue);
 	}
+	/**
+	 * print revenue report by Date
+	 * @param date
+	 */
 	public void printRevenueReport(Date date){
 		double totalRevenue = 0;
 		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -133,7 +181,9 @@ public class OrderHistory {
 			result = result.concat(order.info());
 		return result;
 	}
-	
+	/**
+	 * save data back into files
+	 */
 	public void cleanUp(){
 		IOHandler.writeSerializedObject("OrdersHistory.db", ordersList);
 	}

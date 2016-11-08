@@ -4,19 +4,25 @@ import Helper.IOHandler;
 
 import java.io.*;
 
+/**
+ * @author Nguyen Dang Duy Nghia
+ *
+ */
 public class Menu implements Serializable{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * store all the menu items, categorized by its types:
+	 * key objects are "main", "drinks", "desserts"
+	 */
 	private TreeMap<String, ArrayList<MenuItem>> menuItemList;
+	/**
+	 * store all packages in menu
+	 */
 	private ArrayList<PromotionalPackage> promotionalPackageList;
-	
-	/*
-	private ArrayList<MenuItem> mainCourse;
-	private ArrayList<MenuItem> drinks;
-	private ArrayList<MenuItem> desserts;
-	*/
+	/**
+	 * constructor
+	 * load all items and packages from files
+	 */
 	public Menu(){
 		promotionalPackageList = new ArrayList<PromotionalPackage>();
 		menuItemList = new TreeMap<String, ArrayList<MenuItem>>();

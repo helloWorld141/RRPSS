@@ -1,6 +1,7 @@
 package Application;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collector;
@@ -17,15 +18,16 @@ public class Reserve implements Serializable{
 		System.out.println(reservations);
 	}
 	
-	public int newReservation(String contact, LocalDateTime arrival, int pax, ArrayList<Table> availTables){
+	public Reservation newReservation(String contact, LocalDateTime arrival, int pax, ArrayList<Table> availTables){
 		availTables.sort(Table.CompareSeatNo);
 		for (Table table:availTables){
 			if (pax < table.getSeatCapacity()){
-				reservations.add(new Reservation(contact, arrival, pax, table.getTableID()));
-				return table.getTableID();
+				Reservation newReservation = new Reservation(contact, arrival, pax, table.getTableID());
+				reservations.add(newReservation);
+				return newReservation;
 			}
 		}
-		return -1;
+		return null;
 	}
 	
 	public Reservation getReservation(String contact){
@@ -43,6 +45,7 @@ public class Reserve implements Serializable{
 				.filter(res -> ids.contains(res.getID()))
 				.collect(Collectors.toList());
 	}
+	
 	public int removeReservation(String contact){
 		Reservation res = null;
 		for (int i =0; i<reservations.size(); i++){
@@ -55,7 +58,18 @@ public class Reserve implements Serializable{
 		if (res==null) return -1;
 		return res.getTableID();
 	}
-	
+	public TreeMap<Integer, String> updateReservation(){
+		TreeMap<Integer, String> tableRelease = new TreeMap<Integer, String>();
+		for (int i=0;i<reservations.size();i++){
+			Reservation reservation = reservations.get(i);
+			if (Duration.between(reservation.getTime(), LocalDateTime.now())
+					.toMinutes() >30){
+				tableRelease.put(reservation.getTableID(), reservation.getID());
+				reservations.remove(i);
+			}
+		}
+		return tableRelease;
+	}
 	@Override
 	public String toString(){
 		//TODO
