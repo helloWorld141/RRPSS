@@ -79,7 +79,10 @@ public class OrderHistory {
 		}
 		ordersList.get(orderID).addPromotionalPackges(packages);
 	}
-	public void removeFromOrder(int orderID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs){		
+	public void removeFromOrder(int orderID, ArrayList<Integer> ){
+		ArrayList<String> itemIDs = new ArrayList<String>();
+		ArrayList<Integer> packageIDs = new ArrayList<Integer>();
+		
 		removeItemFromOrder(orderID, itemIDs);
 		removePackagesFromOrder(orderID, packageIDs);
 	}

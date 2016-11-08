@@ -56,7 +56,8 @@ public class OrderHistory {
 		return ordersList.get(orderID);
 	}
 	public void viewOrder(int orderID){
-		System.out.println(getOrder(orderID));
+		Order order = getOrder(orderID);
+		
 	}
 
 	public void show(){
@@ -79,7 +80,10 @@ public class OrderHistory {
 		}
 		ordersList.get(orderID).addPromotionalPackges(packages);
 	}
-	public void removeFromOrder(int orderID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs){		
+	public void removeFromOrder(int orderID, ArrayList<Integer> pos){
+		ArrayList<String> itemIDs = new ArrayList<String>();
+		ArrayList<Integer> packageIDs = new ArrayList<Integer>();
+		
 		removeItemFromOrder(orderID, itemIDs);
 		removePackagesFromOrder(orderID, packageIDs);
 	}

@@ -80,15 +80,8 @@ public class Order implements Serializable{
 	}
 	public boolean isItemValid(String id){
 		for (MenuItem item : menuItemsOrder){
-			if (item.getID().equals(id)) return true;
+			
 		}
-		return false;
-	}
-	public boolean isPackageValid(int id){
-		for (PromotionalPackage packagee : promotionalPackageOrder){
-			if (packagee.getID() == id) return true;
-		}
-		return false;
 	}
 	public String forReport(){
 		//TODO

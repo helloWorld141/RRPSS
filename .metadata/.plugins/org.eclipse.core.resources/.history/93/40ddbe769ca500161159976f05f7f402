@@ -80,7 +80,7 @@ public class Order implements Serializable{
 	}
 	public boolean isItemValid(String id){
 		for (MenuItem item : menuItemsOrder){
-			if (item.getID().equals(id)) return true;
+			if item.getID().equals(id) return true;
 		}
 		return false;
 	}

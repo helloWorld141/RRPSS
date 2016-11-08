@@ -78,18 +78,6 @@ public class Order implements Serializable{
 			}
 		}
 	}
-	public boolean isItemValid(String id){
-		for (MenuItem item : menuItemsOrder){
-			if (item.getID().equals(id)) return true;
-		}
-		return false;
-	}
-	public boolean isPackageValid(int id){
-		for (PromotionalPackage packagee : promotionalPackageOrder){
-			if (packagee.getID() == id) return true;
-		}
-		return false;
-	}
 	public String forReport(){
 		//TODO
 		// what to print for each entry in the report
@@ -99,9 +87,7 @@ public class Order implements Serializable{
 		String d = "|";
 		return "Order "+orderID+d+"Staff "+staffID+d+"Table "+tableID+d+"Price "+totalPrice;
 	}
-	public void printOrderInvoice(){
-		System.out.println(this);
-	}	
+	
 	@Override
 	public String toString(){
 		//TODO
@@ -117,5 +103,9 @@ public class Order implements Serializable{
 		}
 		res = res.concat(d+"Total Price:" + String.valueOf(totalPrice));
 		return (res);
+	}
+	
+	public void printOrderInvoice(){
+		System.out.println(this);
 	}
 }

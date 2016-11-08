@@ -384,14 +384,14 @@ public class Restaurant {
 		}
 		
 		System.out.println("Choose packages to remove (1000 when finish):");
-		ArrayList<Integer> packages = new ArrayList<Integer>();
+		ArrayList<String> packages = new ArrayList<String>();
 		id = -1;
 		while (id != 1000) {
 			id = SafeInput.safeRead(id, sc);
 			if (orderHistory.getOrder(orderID).isPackageValid(id))
-				packages.add(id);
+				items.add(id.toString());
 		}
-		orderHistory.removeFromOrder(orderID, items, packages);
+		orderHistory.removeFromOrder(orderID, pos);
 
 	}
 	/**

@@ -369,29 +369,24 @@ public class Restaurant {
 		orderHistory.show();
 		int orderID = -1;
 		while (!orderHistory.isValid(orderID)){
-			System.out.println("invalid order id! try again");
+			System.out.println("invalid id. try again");
 			orderID = SafeInput.safeRead(orderID, sc);
 		}
-		
 		orderHistory.viewOrder(orderID);
-		System.out.println("Choose items to remove (1000 when finish):");
-		ArrayList<String> items = new ArrayList<String>();
-		Integer id = -1;
-		while (id != 1000) {
-			id = SafeInput.safeRead(id, sc);
-			if (orderHistory.getOrder(orderID).isItemValid(id.toString()))
-				items.add(id.toString());
+		System.out.println("Choose items to remove (-1 when finish):");
+		 // all items in orders are printed
+											// according to their postion in
+											// order
+		// remove items by using its position in order
+		ArrayList<Integer> pos = new ArrayList<Integer>();
+		int chosen = 0;
+		while (chosen != -1) {
+			chosen = sc.nextInt();
+			if (chosen == -1)
+				break;
+			pos.add(chosen - 1);
 		}
-		
-		System.out.println("Choose packages to remove (1000 when finish):");
-		ArrayList<Integer> packages = new ArrayList<Integer>();
-		id = -1;
-		while (id != 1000) {
-			id = SafeInput.safeRead(id, sc);
-			if (orderHistory.getOrder(orderID).isPackageValid(id))
-				packages.add(id);
-		}
-		orderHistory.removeFromOrder(orderID, items, packages);
+		orderHistory.removeFromOrder(orderID, pos);
 
 	}
 	/**
