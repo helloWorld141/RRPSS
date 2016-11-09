@@ -5,30 +5,30 @@ import Helper.*;
 import Application.*;
 public class CreateMockDB {
 	public static void main (String[] args){
-		ArrayList<Table> tbList = new ArrayList<Table>();
-		createMockTables(tbList); //System.out.println(tbList);
-		List list1 = (ArrayList) tbList;
-		IOHandler.writeSerializedObject("Tables.db", list1);
+//		ArrayList<Table> tbList = new ArrayList<Table>();
+//		createMockTables(tbList); //System.out.println(tbList);
+//		List list1 = (ArrayList) tbList;
+//		IOHandler.writeSerializedObject("Tables.db", list1);
+//		
+//		ArrayList<Staff> stList = new ArrayList<Staff>();
+//		createMockStaff(stList); //System.out.println(stList);
+//		List list2 = (ArrayList) stList;
+//		IOHandler.writeSerializedObject("Staff.db", list2);
 		
-		ArrayList<Staff> stList = new ArrayList<Staff>();
-		createMockStaff(stList); //System.out.println(stList);
-		List list2 = (ArrayList) stList;
-		IOHandler.writeSerializedObject("Staff.db", list2);
+//		ArrayList<Order> odList = new ArrayList<Order>();
+//		createMockOrders(odList);
+//		List list3 = (ArrayList) odList;
+//		IOHandler.writeSerializedObject("OrdersHistory.db", list3);
 		
-		ArrayList<Order> odList = new ArrayList<Order>();
-		createMockOrders(odList);
-		List list3 = (ArrayList) odList;
-		IOHandler.writeSerializedObject("OrdersHistory.db", list3);
+//		ArrayList<PromotionalPackage> pkList = new ArrayList<PromotionalPackage>();
+//		createMockPackages(pkList);
+//		List list4 = (ArrayList) pkList;
+//		IOHandler.writeSerializedObject("PromoPackages.db", list4);
 		
-		ArrayList<PromotionalPackage> pkList = new ArrayList<PromotionalPackage>();
-		createMockPackages(pkList);
-		List list4 = (ArrayList) pkList;
-		IOHandler.writeSerializedObject("PromoPackages.db", list4);
-		
-		ArrayList<MenuItem> itList = new ArrayList<MenuItem>();
-		createMockItems(itList);
-		List list5 = (ArrayList) itList;
-		IOHandler.writeSerializedObject("Items.db", list5);
+//		ArrayList<MenuItem> itList = new ArrayList<MenuItem>();
+//		createMockItems(itList);
+//		List list5 = (ArrayList) itList;
+//		IOHandler.writeSerializedObject("Items.db", list5);
 		
 		ArrayList<Reservation> reList = new ArrayList<Reservation>();
 		createMockReservations(reList);
@@ -103,6 +103,10 @@ public class CreateMockDB {
 	}
 	
 	public static void createMockReservations(ArrayList<Reservation> reList){
+		ArrayList<Reservation> list = new ArrayList<Reservation>();
 		
+		for (int i = 0; i<27; i++){
+			
+		}
 	}
 }

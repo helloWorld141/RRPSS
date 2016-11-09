@@ -23,7 +23,7 @@ public class Order implements Serializable{
 	/**
 	 * total price of the order
 	 */
-	private int totalPrice;
+	private double totalPrice;
 	/**
 	 * when the order is made
 	 */
@@ -113,6 +113,7 @@ public class Order implements Serializable{
 	 */
 	public void addMenuItem(MenuItem toAdd){
 		this.menuItemsOrder.add(toAdd);
+		this.totalPrice+=toAdd.getPrice();
 	}
 	/**
 	 * add multiple menu items into this order
@@ -129,6 +130,8 @@ public class Order implements Serializable{
 	 */
 	public void addPromotionalPackage(PromotionalPackage toAdd){
 		this.promotionalPackageOrder.add(toAdd);
+		this.totalPrice+=toAdd.getPackagePrice();
+		
 	}
 	/**
 	 * add multiple packages to this order
@@ -147,6 +150,7 @@ public class Order implements Serializable{
 		for(int i =0;i<menuItemsOrder.size();i++){
 			if (itemIDs.contains(menuItemsOrder.get(i).getID())){
 				menuItemsOrder.remove(i);
+				this.totalPrice-=menuItemsOrder.get(i).getPrice();
 			}
 		}
 	}
@@ -158,6 +162,7 @@ public class Order implements Serializable{
 		for(int i =0;i<promotionalPackageOrder.size();i++){
 			if (packageIDs.contains(promotionalPackageOrder.get(i).getID())){
 				promotionalPackageOrder.remove(i);
+				this.totalPrice-=promotionalPackageOrder.get(i).getPackagePrice();
 			}
 		}
 	}
@@ -217,7 +222,11 @@ public class Order implements Serializable{
 		for (PromotionalPackage packagee:promotionalPackageOrder){
 			res = res.concat(d+packagee.toString());
 		}
-		res = res.concat(d+"Total Price:" + String.valueOf(totalPrice));
+		double taxes = totalPrice*0.07;
+		res = res.concat(d+"Subtotal: " + String.valueOf(totalPrice));
+		res = res.concat(d+"7% GST: " + String.valueOf(taxes));
+		res = res.concat(d+"TOTAL: "+ String.valueOf(totalPrice+taxes));
+		
 		return (res);
 	}
 }

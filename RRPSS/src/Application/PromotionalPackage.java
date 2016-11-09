@@ -123,6 +123,6 @@ public class PromotionalPackage implements Serializable{
 	@Override
 	public String toString(){
 		String d = "|";
-		return "ID: "+ID+d+packageName+d+packagePrice+"\nPackage includes: \n"+itemList;
+		return "Package ID: "+ID+d+packageName+d+packagePrice+"\nPackage includes: \n"+itemList;
 	}
 }

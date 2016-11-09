@@ -134,13 +134,14 @@ public class OrderHistory {
 	 * once invoice is printed, the order is considered to be paid
 	 * @param orderID
 	 */
-	public void printOrderInvoice(int orderID){
-		if (orderID > ordersList.size() || orderID < 0){
+	public boolean printOrderInvoice(int orderID){
+		if (!isValid(orderID)){
 			System.out.println("Invalid ID");
-			return;
+			return false;
 		}
 		ordersList.get(orderID).printOrderInvoice();
 		ordersList.get(orderID).pay();
+		return true;
 	}
 	/**
 	 * print revenue report by month
@@ -155,6 +156,7 @@ public class OrderHistory {
 				System.out.println(order+"\n");
 			}
 		}
+		totalRevenue*=1.07;
 		System.out.println("Total Revenue : "+ totalRevenue);
 	}
 	/**
@@ -171,6 +173,7 @@ public class OrderHistory {
 				System.out.println(order+"\n");
 			}
 		}
+		totalRevenue*=1.07;
 		System.out.println("Total Revenue : "+ totalRevenue);
 	}
 	

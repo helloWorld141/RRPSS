@@ -231,7 +231,7 @@ public class Restaurant {
 		price = SafeInput.safeRead(price, sc);
 		int packageID = menu.createPromotionalPackage(name, price);
 		
-		System.out.println("Choose items you want to add to this package (Enter 1000 when you are done):");
+		System.out.println("Choose items you want to add to this package (Enter 0 when you are done):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
 		Integer id = 0;
@@ -301,6 +301,7 @@ public class Restaurant {
 			break;
 		default:
 			System.out.println("invalid option");
+			return;
 		}
 
 		System.out.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
@@ -483,9 +484,11 @@ public class Restaurant {
 	public void printOrderInvoice(Scanner sc) {
 		System.out.println("What order");
 		orderHistory.show();
-		int orderID = sc.nextInt();
-		orderHistory.printOrderInvoice(orderID);
-		tablesManager.setStatus(orderHistory.getOrder(orderID).getTableID(), TableStatus.vacated);
+		int orderID = -1;
+		orderID = SafeInput.safeRead(orderID, sc);
+		if (orderID == -1) return;
+		if (orderHistory.printOrderInvoice(orderID))
+			tablesManager.setStatus(orderHistory.getOrder(orderID).getTableID(), TableStatus.vacated);
 	}
 
 	/**
