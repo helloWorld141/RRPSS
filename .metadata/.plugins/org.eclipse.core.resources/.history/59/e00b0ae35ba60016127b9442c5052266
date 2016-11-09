@@ -244,7 +244,7 @@ public class Restaurant {
 		price = SafeInput.safeRead(price, sc);
 		int packageID = menu.createPromotionalPackage(name, price);
 		
-		System.out.println("Choose items you want to add to this package (Enter 1000 when you are done):");
+		System.out.println("Choose items you want to add to this package (Enter 0 when you are done):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
 		Integer id = 0;
