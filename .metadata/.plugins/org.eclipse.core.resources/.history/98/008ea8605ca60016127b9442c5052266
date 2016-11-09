@@ -91,24 +91,8 @@ public class Table implements Serializable {
 	@Override
 	public String toString(){
 		//TODO
-		if (this.tableID < 10 && this.seatCapacity == 10)
-		{
-			return (	
-				 "       "+this.tableID+"      "+" | "+"     "+this.seatCapacity+"      "+" | "+	status+"\n"
-					);
-		}
-		else if (this.tableID > 0 && this.tableID < 10 && this.seatCapacity == 8)
-		{
-			return (	
-				 "       "+this.tableID+"      "+" | "+"     "+this.seatCapacity+"       "+" | "+	status+"\n"
-					);
-		}
-		else
-		{
-			 return (
-					 "       "+this.tableID+"     "+" | "+"     "+this.seatCapacity+"       "+" | "+	status+"\n"
-					 );
-		}
+		return "table "+this.tableID + "|" + this.seatCapacity + " seats|"
+				+ status;
 	}	
 	@Override
 	public boolean equals(Object o) {

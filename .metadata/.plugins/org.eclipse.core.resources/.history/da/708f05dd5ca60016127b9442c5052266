@@ -52,7 +52,7 @@ public class TablesManager {
 	 * @param reserve
 	 */
 	public void showAvailableTables(Reserve reserve) {
-		System.out.println("    Table Number | Seat Capacity | Status\n "+getAvailTables(reserve));
+		System.out.println(getAvailTables(reserve));
 	}
 	/**
 	 * check if a table is available at the time

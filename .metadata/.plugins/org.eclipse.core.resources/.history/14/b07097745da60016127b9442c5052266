@@ -394,10 +394,9 @@ public class Restaurant {
 		int orderID = -1;
 		System.out.println("What order?");
 		orderHistory.show();
-		orderID = SafeInput.safeRead(orderID, sc);
 		while (!orderHistory.canAdd(orderID)) {
-			System.out.println("no order found! Try again");
 			orderID = SafeInput.safeRead(orderID, sc);
+			System.out.println("no order found! Try again");
 		}
 		switch (opt) {
 		case 1:
@@ -419,7 +418,7 @@ public class Restaurant {
 		case 2:
 			System.out.println(
 					"Choose packages from package list (Enter 1000 when you are done. Enter -1 to cancel order):");
-			menu.viewPackages();
+			menu.viewMenuItem();
 			ArrayList<Integer> packageIDs = new ArrayList<Integer>();
 			Integer packageID;
 			do {
@@ -557,14 +556,11 @@ public class Restaurant {
 	 */
 	public void createReservation(Scanner sc) {
 		updateReservation();
-		System.out.println("Enter contact number (enter -1 to cancel):");
+		System.out.println("Enter contact number:");
 		String contact = sc.next();
 		try {
 			Integer.parseInt(contact);
-		} catch (NumberFormatException e){
-			System.out.println("not valid phone number. returning ...");
-		}
-		if (contact.equals("-1")) return;
+		} catch ()
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy HH:mm");
 		Date arrTime = new Date();
 		LocalDateTime arrivalTime;

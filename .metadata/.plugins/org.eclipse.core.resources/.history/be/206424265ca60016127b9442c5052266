@@ -20,7 +20,7 @@ public class StaffManager {
 	public StaffManager(){
 		staffList = new ArrayList<Staff>();
 		staffList = (ArrayList) IOHandler.readSerializedObject("Staff.db");
-		System.out.println("        Staff Name    |    Gender    |    Staff ID    |    Role\n "+staffList);
+		System.out.println(staffList);
 	}
 	/**
 	 * check if the staff exist
