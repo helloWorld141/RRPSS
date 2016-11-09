@@ -216,7 +216,6 @@ public class Order implements Serializable{
 		//what to print in order invoice
 		String d = "\n";
 		String res = "Order "+orderID+d+"List of items and packages:";
-		res = res.concat("TimeStamp: " + timeStamp);
 		for (MenuItem item:menuItemsOrder){
 			res = res.concat(d+item.toString());
 		}
@@ -224,11 +223,9 @@ public class Order implements Serializable{
 			res = res.concat(d+packagee.toString());
 		}
 		double taxes = totalPrice*0.07;
-		double charge = (taxes+totalPrice)*0.1;
 		res = res.concat(d+"Subtotal: " + String.valueOf(totalPrice));
 		res = res.concat(d+"7% GST: " + String.valueOf(taxes));
-		res = res.concat(d+"Service Charge: " + String.valueOf(charge));
-		res = res.concat(d+"TOTAL: "+ String.valueOf(totalPrice+taxes+charge));
+		res = res.concat(d+"TOTAL: "+ String.valueOf(totalPrice+taxes));
 		
 		return (res);
 	}

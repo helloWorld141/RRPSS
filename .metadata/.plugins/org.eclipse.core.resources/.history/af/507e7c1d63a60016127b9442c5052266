@@ -156,7 +156,6 @@ public class OrderHistory {
 				System.out.println(order+"\n");
 			}
 		}
-		totalRevenue*=1.1;
 		totalRevenue*=1.07;
 		System.out.println("Total Revenue : "+ totalRevenue);
 	}
@@ -174,7 +173,6 @@ public class OrderHistory {
 				System.out.println(order+"\n");
 			}
 		}
-		totalRevenue*=1.1;
 		totalRevenue*=1.07;
 		System.out.println("Total Revenue : "+ totalRevenue);
 	}
