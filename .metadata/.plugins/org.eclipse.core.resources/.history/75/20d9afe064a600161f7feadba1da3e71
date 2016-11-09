@@ -398,7 +398,6 @@ public class Restaurant {
 		while (!orderHistory.canAdd(orderID)) {
 			System.out.println("no order found! Try again");
 			orderID = SafeInput.safeRead(orderID, sc);
-			if (orderID == -1) return;
 		}
 		switch (opt) {
 		case 1:

@@ -15,12 +15,10 @@
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="Application.Restaurant"/>
 <fullyQualifiedTypeName name="java.time.DateTimeException"/>
-<fullyQualifiedTypeName name="java.text.ParseException"/>
 <fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
 <fullyQualifiedTypeName name="java.util.Random"/>
 <fullyQualifiedTypeName name="Application.OrderHistory"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="javax.sound.midi.Patch"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
 <fullyQualifiedTypeName name="java.time.Period"/>
 <fullyQualifiedTypeName name="java.time.LocalDate"/>
@@ -31,7 +29,6 @@
 <fullyQualifiedTypeName name="java.util.UUID"/>
 <fullyQualifiedTypeName name="java.util.stream.Collector"/>
 <fullyQualifiedTypeName name="Application.Reservation"/>
-<fullyQualifiedTypeName name="java.time.LocalDateTime"/>
 <fullyQualifiedTypeName name="java.time.LocalTime"/>
 <fullyQualifiedTypeName name="java.sql.Time"/>
 <fullyQualifiedTypeName name="Application.TableStatus"/>
@@ -46,6 +43,10 @@
 <fullyQualifiedTypeName name="Application.PromotionalPackage"/>
 <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="Helper.TimeHandler"/>
 <fullyQualifiedTypeName name="java.time.Duration"/>
+<fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+<fullyQualifiedTypeName name="Helper.TimeHandler"/>
+<fullyQualifiedTypeName name="javax.sound.midi.Patch"/>
+<fullyQualifiedTypeName name="java.text.ParseException"/>
+<fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
 </qualifiedTypeNameHistroy>
