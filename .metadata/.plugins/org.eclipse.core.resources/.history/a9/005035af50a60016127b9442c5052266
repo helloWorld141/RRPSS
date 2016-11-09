@@ -1,0 +1,197 @@
+package Application;
+
+import java.time.*;
+import java.util.ArrayList;
+import java.util.Date;
+
+import Helper.IOHandler;
+
+/**
+ * @author Nguyen Dang Duy Nghia
+ * managing orders history and revenue report
+ */
+public class OrderHistory {
+	private ArrayList<Order> ordersList;
+	/**
+	 * constructor
+	 * load all orders in data file
+	 */
+	OrderHistory(){
+		ordersList = new ArrayList<Order>();
+		ordersList = (ArrayList<Order>)IOHandler.readSerializedObject("OrdersHistory.db");
+		System.out.println(ordersList);
+	}
+	/**
+	 * create new order and add it into the list
+	 * @param staffID
+	 * @param tableID
+	 * @param itemIDs
+	 * @param packageIDs
+	 * @param menu
+	 */
+	public void newOrder(int staffID, int tableID, ArrayList<String> itemIDs, ArrayList<Integer> packageIDs, Menu menu){
+		if (itemIDs.isEmpty() && packageIDs.isEmpty()){
+			System.out.println("Please choose at least 1 item from the menu!!!");
+			return;			
+		}
+		int orderID = ordersList.size();
+		LocalDateTime timeStamp = LocalDateTime.now();
+		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+		ArrayList<PromotionalPackage> packages = new ArrayList<PromotionalPackage>();
+		for (int i=0; i<itemIDs.size(); i++){
+			menuItems.add(menu.getMenuItem(itemIDs.get(i)));
+		}
+		for (int i=0; i<packageIDs.size(); i++){
+			packages.add(menu.getPackage(packageIDs.get(i)));
+		}
+		ordersList.add(new Order(orderID, staffID, tableID, timeStamp, menuItems, packages));
+	}
+	/**
+	 * check if an order with id orderID exists
+	 * @param orderID
+	 * @return
+	 */
+	public boolean isValid(int orderID){
+		return (orderID < ordersList.size() && orderID >=0);
+	}
+	/**
+	 * check if an order can have items and packages added to it 
+	 * @param orderID
+	 * @return
+	 */
+	public boolean canAdd(int orderID){
+		return (isValid(orderID) && 
+				!getOrder(orderID).isPaid());
+	}
+	/**
+	 * get an order order with a specific orderID
+	 * @param orderID
+	 * @return
+	 */
+	public Order getOrder(int orderID){
+		return ordersList.get(orderID);
+	}
+	/**
+	 * print out an order with a specific orderID
+	 * @param orderID
+	 */
+	public void viewOrder(int orderID){
+		System.out.println(getOrder(orderID));
+	}
+	/**
+	 * print out all order that have not been paid
+	 */
+	public void show(){
+		for (Order order:ordersList){
+			if (!order.isPaid()){
+				System.out.println(order.info());
+			}
+		}
+	}
+	/**
+	 * add menu items into an existing order
+	 * @param orderID
+	 * @param itemIDs
+	 * @param menu
+	 */
+	public void addItemsToOrder(int orderID, ArrayList<String> itemIDs, Menu menu){
+		ArrayList<MenuItem> items = new ArrayList<MenuItem>();
+		for (String id:itemIDs)
+			items.add(menu.getMenuItem(id));
+		ordersList.get(orderID).addMenuItems(items);
+	}
+	/**
+	 * add menu packages into an existing order
+	 * @param orderID
+	 * @param packageIDs
+	 * @param menu
+	 */
+	public void addPackagesToOrder(int orderID, ArrayList<Integer> packageIDs, Menu menu){
+		ArrayList<PromotionalPackage> packages = new ArrayList<PromotionalPackage>();
+		for(Integer id:packageIDs){
+			packages.add(menu.getPackage(id));
+		}
+		ordersList.get(orderID).addPromotionalPackges(packages);
+	}
+	/**
+	 * remove items from an existing order
+	 * @param orderID
+	 * @param itemIDs
+	 */
+	public void removeItemFromOrder(int orderID, ArrayList<String> itemIDs){
+		ordersList.get(orderID).removeItems(itemIDs);
+	}
+	/**
+	 * remove packages from an existing order
+	 * @param orderID
+	 * @param packageIDs
+	 */
+	public void removePackagesFromOrder(int orderID, ArrayList<Integer> packageIDs){
+		ordersList.get(orderID).removePackages(packageIDs);
+	}
+	/**
+	 * print order invoice when payment is made.
+	 * once invoice is printed, the order is considered to be paid
+	 * @param orderID
+	 */
+	public boolean printOrderInvoice(int orderID){
+		if (!isValid(orderID)){
+			System.out.println("Invalid ID");
+			return false;
+		}
+		if (getOrder(orderID).isPaid()){
+			System.out.println("this order is already paid!");
+		}
+		ordersList.get(orderID).printOrderInvoice();
+		ordersList.get(orderID).pay();
+		
+		return true;
+	}
+	/**
+	 * print revenue report by month
+	 * @param month
+	 */
+	public void printRevenueReport(Month month){
+		double totalRevenue = 0;
+		System.out.println("Revenue report on " + month);
+		for (Order order:ordersList){
+			if (order.when().toLocalDate().getMonth().equals(month) && order.isPaid()){
+				totalRevenue+=order.getTotalPrice();
+				System.out.println(order+"\n");
+			}
+		}
+		totalRevenue*=1.07;
+		System.out.println("Total Revenue : "+ totalRevenue);
+	}
+	/**
+	 * print revenue report by Date
+	 * @param date
+	 */
+	public void printRevenueReport(Date date){
+		double totalRevenue = 0;
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		System.out.println("Revenue report on " + localDate);
+		for (Order order:ordersList){
+			if (order.when().toLocalDate().equals(localDate) && order.isPaid()){
+				totalRevenue+=order.getTotalPrice();
+				System.out.println(order+"\n");
+			}
+		}
+		totalRevenue*=1.07;
+		System.out.println("Total Revenue : "+ totalRevenue);
+	}
+	
+	@Override
+	public String toString(){
+		String result = new String();
+		for (Order order : ordersList)
+			result = result.concat(order.info());
+		return result;
+	}
+	/**
+	 * save data back into files
+	 */
+	public void cleanUp(){
+		IOHandler.writeSerializedObject("OrdersHistory.db", ordersList);
+	}
+}

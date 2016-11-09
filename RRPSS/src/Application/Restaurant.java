@@ -260,6 +260,9 @@ public class Restaurant {
 	 * @param sc - Read input from console
 	 */
 	public void createNewOrder(Scanner sc) {
+		if (!TimeHandler.isValidToBook(LocalDateTime.now())){
+			System.out.println("We are not operating now!");
+		}
 		System.out.println("Enter Staff ID (Enter -1 to cancel order):");
 		int staffID = -1;
 		staffID = SafeInput.safeRead(staffID, sc);
@@ -285,7 +288,11 @@ public class Restaurant {
 			Reservation reservation = reserve.getReservation(contact);
 			if (reservation == null) {
 				System.out.println("This number has not reserved.");
-				break;
+				return;
+			}
+			if (!TimeHandler.justInTime(reservation.getTime())){
+				System.out.println("You are too early dude!");
+				return;
 			}
 			tableID = reservation.getTableID();
 			removeReservation(reservation);
@@ -487,8 +494,14 @@ public class Restaurant {
 		int orderID = -1;
 		orderID = SafeInput.safeRead(orderID, sc);
 		if (orderID == -1) return;
+		Order order = orderHistory.getOrder(orderID);
+		boolean dontVacate = false;
+		if (order.isPaid()) {
+			dontVacate = true;
+		}
 		if (orderHistory.printOrderInvoice(orderID))
-			tablesManager.setStatus(orderHistory.getOrder(orderID).getTableID(), TableStatus.vacated);
+			if (!dontVacate)
+				tablesManager.setStatus(order.getTableID(), TableStatus.vacated);
 	}
 
 	/**

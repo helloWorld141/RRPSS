@@ -36,7 +36,7 @@ public class Reservation implements Serializable{
 	 * @param pax
 	 * @param tableID
 	 */
-	Reservation(String contact, LocalDateTime arrival, int pax, int tableID){
+	public Reservation(String contact, LocalDateTime arrival, int pax, int tableID){
 		this.id = UUID.randomUUID().toString();
 		this.contact = contact;
 		this.arrivalTime = arrival;
@@ -97,6 +97,6 @@ public class Reservation implements Serializable{
 	@Override
 	public String toString(){
 		String d = "|";
-		return contact+d+arrivalTime+d+pax;
+		return contact+d+arrivalTime+d+pax+d+"Table "+tableID;
 	}
 }

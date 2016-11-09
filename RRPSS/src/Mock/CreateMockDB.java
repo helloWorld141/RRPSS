@@ -1,5 +1,6 @@
 package Mock;
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import Helper.*;
 import Application.*;
@@ -103,10 +104,15 @@ public class CreateMockDB {
 	}
 	
 	public static void createMockReservations(ArrayList<Reservation> reList){
-		ArrayList<Reservation> list = new ArrayList<Reservation>();
-		
-		for (int i = 0; i<27; i++){
-			
+		String contact = "111";
+		int pax =0;
+		for (Integer i = 0; i<27; i++){
+			LocalDateTime arrival = LocalDateTime.of(2016, 11, 9, 18, 00, 00);
+			if (i<5) pax =10;
+			else if (i<10) pax = 8;
+			else if (i<20) pax = 4;
+			else pax = 2;
+			reList.add(new Reservation(contact+i.toString(), arrival, pax, i));
 		}
 	}
 }

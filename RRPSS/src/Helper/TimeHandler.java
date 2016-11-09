@@ -40,4 +40,15 @@ public class TimeHandler {
 				LocalDateTime.now().compareTo(time) < 0 &&
 				Duration.between(LocalDateTime.now(), time).toDays() <= 30;
 	}
+	/**
+	 * to check if the reserved time matches the time stated in reservation 
+	 * @param time
+	 * @return
+	 */
+	public static boolean justInTime(LocalDateTime time){
+		LocalDateTime now = LocalDateTime.now();
+		if (Duration.between(time, now).toMinutes() <= 30)
+			return true;
+		return false;
+	}
 }
