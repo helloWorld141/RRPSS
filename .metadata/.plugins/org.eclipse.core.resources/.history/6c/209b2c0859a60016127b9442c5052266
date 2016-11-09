@@ -114,7 +114,6 @@ public class Menu implements Serializable{
 	 */
 	public void removeMenuItem(String ID){
 		char type = ID.charAt(0);
-		if (type != '1' && type != '2' && type != '3') return;
 		int i=0;
 		String courseType = CourseType.values()[type-49].toString();
 		for(i=0;i<menuItemList.get(courseType).size();i++){
@@ -247,7 +246,7 @@ public class Menu implements Serializable{
 	 * print all items in ala carte list
 	 */
 	public void viewMenuItem(){
-		/*System.out.println("\n+ Main Course:");
+		System.out.println("\n+ Main Course:");
 		ArrayList<MenuItem> list = menuItemList.get("main");
 		for (int i=0;i<list.size();i++){
 			System.out.println(list.get(i));
@@ -258,22 +257,6 @@ public class Menu implements Serializable{
 			System.out.println(list.get(i));
 		}
 		System.out.println("\n+ Desserts:");
-		list = menuItemList.get("desserts");
-		for (int i=0;i<list.size();i++){
-			System.out.println(list.get(i));
-		}*/
-		
-		System.out.println("\n+ Main Course:\n" + "ID" + " |     " + "Name" + "     |       " + "Description" + "      | " + "Price ($)\n");
-		ArrayList<MenuItem> list = menuItemList.get("main");
-		for (int i=0;i<list.size();i++){
-			System.out.println(list.get(i));
-		}
-		System.out.println("\n+ Drinks:\n" + "ID" + " |      " + "Name" + "      |       " + "Description" + "      | " + "Price ($)\n");
-		list = menuItemList.get("drinks");
-		for (int i=0;i<list.size();i++){
-			System.out.println(list.get(i));
-		}
-		System.out.println("\n+ Desserts:\n" + "ID" + " |         " + "Name" + "         |      " + "Description" + "       | " + "Price ($)\n");
 		list = menuItemList.get("desserts");
 		for (int i=0;i<list.size();i++){
 			System.out.println(list.get(i));

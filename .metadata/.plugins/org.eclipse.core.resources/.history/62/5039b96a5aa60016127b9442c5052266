@@ -114,7 +114,7 @@ public class RestaurantApp {
 						while (myRestaurant.createMenuItem(sc) != 4);
 						break;
 					case 2:
-						myRestaurant.removeMenuItem(sc);
+						while (!myRestaurant.removeMenuItem(sc).equals("-1"));
 						break;
 					case 3:
 						break;

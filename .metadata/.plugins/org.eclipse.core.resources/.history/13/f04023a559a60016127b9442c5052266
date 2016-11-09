@@ -65,18 +65,7 @@ public class Staff implements Serializable{
 	}
 	@Override 
 	public String toString(){
-		if (gender.length() == 4)
-		{
-			return (	
-				"         "+name+"       |     "+gender+ "     |        "+staffID+"       |   "+role+"\n"
-						);
-		}
-
-		else
-		{
-			return (	
-				"         "+name+"       |    "+gender+"    |        "+staffID+"       |   "+role+"\n"
-						);
-		}
+		String d = "|";
+		return (name+d+gender+d+staffID+d+role);
 	}
 }

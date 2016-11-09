@@ -128,7 +128,7 @@ public class Restaurant {
 	 *            - Read input from console
 	 * @return
 	 */
-	public void removeMenuItem(Scanner sc) {
+	public String removeMenuItem(Scanner sc) {
 		menu.viewMenuItem();
 		System.out.println("What item you want to remove (Enter -1 to go back): ");
 		sc.nextLine();
@@ -138,13 +138,11 @@ public class Restaurant {
 			try {
 				Integer.parseInt(id);
 			} catch (NumberFormatException e){
-				System.out.println("not valid id. returning...");
+				System.out.println("not valid id. try again");
 				return;
 			}
-			if (id.equals("-1")) return;
-			menu.removeMenuItem(id);
 		}
-
+		return id;
 	}
 
 	/**

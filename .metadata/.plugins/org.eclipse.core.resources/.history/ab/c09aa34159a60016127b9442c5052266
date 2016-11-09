@@ -113,6 +113,7 @@ public class MenuItem implements Serializable{
 
 	@Override
 	public String toString(){
-		return (ID + " | " + name + " | " + description + " | " + price + "\n");
+		String d = "|";
+		return (type+d+ID+d+name+d+description+d+price);
 	}
 }

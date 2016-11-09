@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import javax.sound.midi.Patch;
-
 import java.time.*;
 import Helper.*;
 
@@ -128,23 +126,16 @@ public class Restaurant {
 	 *            - Read input from console
 	 * @return
 	 */
-	public void removeMenuItem(Scanner sc) {
+	public String removeMenuItem(Scanner sc) {
 		menu.viewMenuItem();
 		System.out.println("What item you want to remove (Enter -1 to go back): ");
 		sc.nextLine();
 		String id = new String();
 		while (!id.equals("-1")){
-			id = sc.nextLine();
-			try {
-				Integer.parseInt(id);
-			} catch (NumberFormatException e){
-				System.out.println("not valid id. returning...");
-				return;
-			}
-			if (id.equals("-1")) return;
+			String id = sc.nextLine();
 			menu.removeMenuItem(id);
 		}
-
+		return id;
 	}
 
 	/**

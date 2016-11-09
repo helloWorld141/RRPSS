@@ -111,10 +111,10 @@ public class RestaurantApp {
 					action = SafeInput.safeRead(action, sc);
 					switch (action) {
 					case 1:
-						while (myRestaurant.createMenuItem(sc) != 4);
+						myRestaurant.createMenuItem(sc);
 						break;
 					case 2:
-						myRestaurant.removeMenuItem(sc);
+						while (!myRestaurant.removeMenuItem(sc).equals("-1"));
 						break;
 					case 3:
 						break;

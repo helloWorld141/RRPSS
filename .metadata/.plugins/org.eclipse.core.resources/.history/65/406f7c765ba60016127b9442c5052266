@@ -141,7 +141,7 @@ public class Restaurant {
 				System.out.println("not valid id. returning...");
 				return;
 			}
-			if (id.equals("-1")) return;
+			if (id.equals("-1"))
 			menu.removeMenuItem(id);
 		}
 

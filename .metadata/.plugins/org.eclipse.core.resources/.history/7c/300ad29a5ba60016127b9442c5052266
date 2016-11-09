@@ -114,7 +114,6 @@ public class Menu implements Serializable{
 	 */
 	public void removeMenuItem(String ID){
 		char type = ID.charAt(0);
-		if (type != '1' && type != '2' && type != '3') return;
 		int i=0;
 		String courseType = CourseType.values()[type-49].toString();
 		for(i=0;i<menuItemList.get(courseType).size();i++){
