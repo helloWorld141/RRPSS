@@ -28,10 +28,8 @@ public class TimeHandler {
 		else return null;
 	}
 	/**
-	 * check a time if it is valid to make a reservation
-	 * i.e: not more than 30 days from now,
-	 * must be in either AM or PM session,
-	 * and of course must be in the future
+	 * check a time if it is valid
+	 * 
 	 * @param time
 	 * @return
 	 */

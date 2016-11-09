@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 /**
  * @author Nguyen Dang Duy Nghia
- * all attributes of an instance of this Staff class is immutable
+ *
  */
 public class Staff implements Serializable{
 	/**
@@ -49,17 +49,10 @@ public class Staff implements Serializable{
 	public String getGender(){
 		return this.gender;
 	}
-	/**
-	 * get the id of this staff
-	 * @return
-	 */
+	
 	public int getStaffID(){
 		return this.staffID;
 	}
-	/**
-	 * get the role of this staff
-	 * @return
-	 */
 	public String getRole(){
 		return this.role;
 	}

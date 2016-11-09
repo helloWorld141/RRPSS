@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 /**
  * @author Nguyen Dang Duy Nghia
- * all attributes of an instance of this Staff class is immutable
+ * Staff class
  */
 public class Staff implements Serializable{
 	/**
@@ -63,6 +63,9 @@ public class Staff implements Serializable{
 	public String getRole(){
 		return this.role;
 	}
+	/**
+	 * 
+	 */
 	@Override 
 	public String toString(){
 		String d = "|";

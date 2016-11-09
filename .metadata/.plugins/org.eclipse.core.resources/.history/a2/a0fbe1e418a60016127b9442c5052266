@@ -3,7 +3,7 @@ import java.io.Serializable;
 
 /**
  * @author Nguyen Dang Duy Nghia
- * all attributes of an instance of this Staff class is immutable
+ * value of all attributes of an instance is immutable
  */
 public class Staff implements Serializable{
 	/**

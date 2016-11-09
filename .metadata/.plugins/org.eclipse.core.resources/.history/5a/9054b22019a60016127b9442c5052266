@@ -39,7 +39,7 @@ public class IOHandler {
 		return pDetails;
 	}
 	/**
-	 * write a list of Objects into a binary file
+	 * write a list of Objects into a binary files
 	 * @param filename
 	 * @param list
 	 */

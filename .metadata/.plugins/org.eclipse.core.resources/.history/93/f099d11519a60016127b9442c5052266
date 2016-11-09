@@ -38,11 +38,7 @@ public class IOHandler {
 		//System.out.println();
 		return pDetails;
 	}
-	/**
-	 * write a list of Objects into a binary file
-	 * @param filename
-	 * @param list
-	 */
+	
 	public static void writeSerializedObject(String filename, List list) {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;

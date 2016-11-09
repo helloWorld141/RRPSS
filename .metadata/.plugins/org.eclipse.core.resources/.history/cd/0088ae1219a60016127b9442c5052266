@@ -15,7 +15,7 @@ import java.util.List;
 public class IOHandler {
 	IOHandler(){}
 	/**
-	 * read a binary files and return a list of Object
+	 * read a binary files and 
 	 * @param filename
 	 * @return
 	 */
@@ -38,11 +38,7 @@ public class IOHandler {
 		//System.out.println();
 		return pDetails;
 	}
-	/**
-	 * write a list of Objects into a binary file
-	 * @param filename
-	 * @param list
-	 */
+	
 	public static void writeSerializedObject(String filename, List list) {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
