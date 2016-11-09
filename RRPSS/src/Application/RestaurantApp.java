@@ -161,9 +161,12 @@ public class RestaurantApp {
 			case 4: // add/remove package
 				action = 0;
 				while (action != 3) {
-					System.out.println("Choose an action:" + "\n(1) Create new promotional package"
-							+ "\n(2) Remove promotional package" + "\n(3) Back");
+					System.out.println("Choose an action:" 
+							+ "\n(1) Create new promotional package"
+							+ "\n(2) Remove promotional package"
+							+ "\n(3) Back");
 					action = SafeInput.safeRead(action, sc);
+					sc.nextLine();
 					switch (action) {
 					case 1:
 						myRestaurant.createPromoPack(sc);

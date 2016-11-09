@@ -8,16 +8,32 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import Helper.IOHandler;
-
+/**
+ * @author Nguyen Dang Duy Nghia
+ *
+ */
 public class Reserve implements Serializable{
+	/**
+	 * store all the reservations
+	 */
 	ArrayList<Reservation> reservations;
-	
+	/**
+	 * constructor
+	 * load all data from file
+	 */
 	public Reserve(){
 		reservations = new ArrayList<Reservation>();
 		reservations = (ArrayList)IOHandler.readSerializedObject("Reservations.db");
 		System.out.println(reservations);
 	}
-	
+	/**
+	 * create new reservation, providing contact number, arrival time and number of people
+	 * @param contact
+	 * @param arrival
+	 * @param pax
+	 * @param availTables
+	 * @return
+	 */
 	public Reservation newReservation(String contact, LocalDateTime arrival, int pax, ArrayList<Table> availTables){
 		availTables.sort(Table.CompareSeatNo);
 		for (Table table:availTables){
@@ -29,7 +45,11 @@ public class Reserve implements Serializable{
 		}
 		return null;
 	}
-	
+	/**
+	 * get a reservation using the contact that were used to book
+	 * @param contact
+	 * @return
+	 */
 	public Reservation getReservation(String contact){
 		for (Reservation res:reservations)
 			if (res.getContact().equals(contact)){
@@ -37,15 +57,28 @@ public class Reserve implements Serializable{
 			}	
 		return null;
 	}
+	/**
+	 * print a reservation details
+	 * @param contact
+	 */
 	public void showReservation(String contact){
 		System.out.println(getReservation(contact));
 	}
+	/**
+	 * get multiple reservations
+	 * @param ids
+	 * @return
+	 */
 	public ArrayList<Reservation> getReservations(ArrayList<String> ids){ 
 		return (ArrayList<Reservation>)reservations.stream()
 				.filter(res -> ids.contains(res.getID()))
 				.collect(Collectors.toList());
 	}
-	
+	/**
+	 * remove a reservation from the list because it is either out-dated or canceled
+	 * @param contact
+	 * @return
+	 */
 	public int removeReservation(String contact){
 		Reservation res = null;
 		for (int i =0; i<reservations.size(); i++){
@@ -58,6 +91,11 @@ public class Reserve implements Serializable{
 		if (res==null) return -1;
 		return res.getTableID();
 	}
+	/**
+	 * update the reservation list at the time of calling this method
+	 * all the outdated reservations are removed
+	 * @return
+	 */
 	public TreeMap<Integer, String> updateReservation(){
 		TreeMap<Integer, String> tableRelease = new TreeMap<Integer, String>();
 		for (int i=0;i<reservations.size();i++){
@@ -75,6 +113,9 @@ public class Reserve implements Serializable{
 		//TODO
 		return new String();
 	}
+	/**
+	 * save data back into files
+	 */
 	public void cleanUp(){
 		IOHandler.writeSerializedObject("Reservations.db", reservations);
 	}

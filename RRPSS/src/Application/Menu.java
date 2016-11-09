@@ -133,9 +133,10 @@ public class Menu implements Serializable{
 	 * @param name
 	 * @param price
 	 */
-	public void createPromotionalPackage(String name, double price){
+	public int createPromotionalPackage(String name, double price){
 		int id = promotionalPackageList.size();
 		promotionalPackageList.add(new PromotionalPackage(id, name, price));
+		return id;
 	}
 	/**
 	 * remove an existing promotional package. ignore if packageNo is invalid
@@ -147,6 +148,7 @@ public class Menu implements Serializable{
 			for (int i=packageNo; i<promotionalPackageList.size(); i++){
 				promotionalPackageList.get(i).setID(i);
 			}
+			System.out.println("package removed");
 		}
 	}
 	/**
@@ -219,6 +221,7 @@ public class Menu implements Serializable{
 	 */
 	public MenuItem getMenuItem(String itemID){
 		char type = itemID.charAt(0);
+		if (type != '1' && type != '2' && type != '3') return null;
 		String courseType = CourseType.values()[type-49].toString();
 		for(int i=0;i<menuItemList.get(courseType).size();i++){
 			if (menuItemList.get(courseType).get(i).getID().equals(itemID)){
@@ -235,7 +238,7 @@ public class Menu implements Serializable{
 	public PromotionalPackage getPackage(int packageNo){
 		try {
 			return promotionalPackageList.get(packageNo);
-		} catch (ArrayIndexOutOfBoundsException e){
+		} catch (IndexOutOfBoundsException e){
 			return null;
 		}
 	}

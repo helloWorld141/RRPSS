@@ -9,8 +9,8 @@ import java.time.*;
 import Helper.*;
 
 /**
- * @author Nguyen Dang Duy Nghia
- * responsible for creating response for every user request
+ * @author Nguyen Dang Duy Nghia responsible for creating response for every
+ *         user request
  */
 public class Restaurant {
 	/**
@@ -37,35 +37,35 @@ public class Restaurant {
 	/**
 	 * create new Restaurant, load all data from files
 	 */
-	Restaurant(){
+	Restaurant() {
 		tablesManager = new TablesManager();
 		staffManager = new StaffManager();
 		orderHistory = new OrderHistory();
 		menu = new Menu();
 		reserve = new Reserve();
 	}
+
 	/**
 	 * Update menu items
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 * @return
 	 */
 	public boolean updateMenuItem(Scanner sc) {
 		String id;
 		String newVal;
-		System.out.println("\nChoose an action:" 
-				+ "\n(1) Change item's name" 
-				+ "\n(2) Change item's price"
-				+ "\n(3) Change item's description" 
-				+ "\n(4) Back");
-		int opt =0;
+		System.out.println("\nChoose an action:" + "\n(1) Change item's name" + "\n(2) Change item's price"
+				+ "\n(3) Change item's description" + "\n(4) Back");
+		int opt = 0;
 		opt = SafeInput.safeRead(opt, sc);
 		if (opt == 4)
 			return false;
 		sc.nextLine();
-		System.out.println("Enter item ID:");	
+		System.out.println("Enter item ID:");
 		menu.viewMenuItem();
 		id = sc.nextLine();
-		while(!menu.isValid(id)){
+		while (!menu.isValid(id)) {
 			System.out.println("invalid menu item id. try again");
 			id = sc.nextLine();
 		}
@@ -92,17 +92,16 @@ public class Restaurant {
 		}
 		return true;
 	}
+
 	/**
 	 * create new menu items
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 * @return
 	 */
 	public int createMenuItem(Scanner sc) {
-		System.out.println("Course Type :" 
-					+ "\n(1) Main course" 
-					+ "\n(2) Drinks" 
-					+ "\n(3) Desserts" 
-					+ "\n(4) Back");
+		System.out.println("Course Type :" + "\n(1) Main course" + "\n(2) Drinks" + "\n(3) Desserts" + "\n(4) Back");
 		int type = 0;
 		type = SafeInput.safeRead(type, sc);
 		if (type > 4 || type < 1) {
@@ -121,8 +120,10 @@ public class Restaurant {
 		menu.createMenuItem(type, name, description, price);
 		return type;
 	}
+
 	/**
-	 * @param sc - Read input from console
+	 * @param sc
+	 *            - Read input from console
 	 * @return
 	 */
 	public String removeMenuItem(Scanner sc) {
@@ -132,14 +133,18 @@ public class Restaurant {
 		menu.removeMenuItem(id);
 		return id;
 	}
+
 	/**
 	 * update information of promotional package
-	 * @param target - determine what to update, either name or price of the package
+	 * 
+	 * @param target
+	 *            - determine what to update, either name or price of the
+	 *            package
 	 * @param id
 	 * @param newVal
 	 */
 	public void updatePromoPack(int target, int id, String newVal) {
-		if (menu.isValid(id)){
+		if (menu.isValid(id)) {
 			switch (target) {
 			case 1:
 				menu.updatePackageName(id, newVal);
@@ -153,20 +158,23 @@ public class Restaurant {
 			System.out.println("invalid id!!");
 		}
 	}
+
 	/**
 	 * add menu items into a package
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void addItemToPackage(Scanner sc) {
 		System.out.println("Choose package");
 		menu.viewPackages();
 		int packageID = -1;
 		packageID = SafeInput.safeRead(packageID, sc);
-		if (packageID == -1 || !menu.isValid(packageID)){
+		if (packageID == -1 || !menu.isValid(packageID)) {
 			System.out.println("package not exist!!");
 			return;
 		}
-		System.out.println("Choose items you want to add to this package (Enter 0 when you are done):");
+		System.out.println("Choose items you want to add to this package (Enter 1000 when you are done):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
 		Integer id = 0;
@@ -174,39 +182,43 @@ public class Restaurant {
 			id = SafeInput.safeRead(id, sc);
 			if (menu.isValid(id.toString()))
 				itemIDs.add(id.toString());
-		} while (id != 0);
+		} while (id != 1000);
 		System.out.println("Enter new price for the package:");
-		double newPrice =0;
+		double newPrice = 0;
 		newPrice = SafeInput.safeRead(newPrice, sc);
 		menu.addItemsToPackage(packageID, itemIDs, newPrice);
 	}
+
 	/**
 	 * remove menu items from a package
-	 * @param sc- Read input from console
+	 * 
+	 * @param sc-
+	 *            Read input from console
 	 */
 	public void removeItemFromPackage(Scanner sc) {
 		System.out.println("Choose package");
 		menu.viewPackages();
-		int packageNo=-1;
+		int packageNo = -1;
 		packageNo = SafeInput.safeRead(packageNo, sc);
-		if (packageNo == -1 || !menu.isValid(packageNo)){
+		if (packageNo == -1 || !menu.isValid(packageNo)) {
 			System.out.println("package not exist!!");
 			return;
 		}
 		System.out.println("Choose items you want to remove from this package (Enter -1 when you are done):");
 		menu.viewItemsFromPackage(packageNo);
 		ArrayList<String> itemIDs = new ArrayList<String>();
-		Integer id=-1;
+		Integer id = -1;
 		do {
 			id = SafeInput.safeRead(id, sc);
 			if (menu.isValid(id.toString()))
 				itemIDs.add(id.toString());
 		} while (id != -1);
 		System.out.println("Enter new price for the package:");
-		double newPrice =0;
+		double newPrice = 0;
 		newPrice = SafeInput.safeRead(newPrice, sc);
 		menu.removeItemsFromPackage(packageNo, itemIDs, newPrice);
 	}
+
 	/**
 	 * create new promotional package
 	 * @param sc - Read input from console
@@ -215,9 +227,23 @@ public class Restaurant {
 		System.out.println("Enter package name:");
 		String name = sc.nextLine();
 		System.out.println("Enter the price for the package");
-		Double price = sc.nextDouble();
-		menu.createPromotionalPackage(name, price);
+		Double price = 0.0;
+		price = SafeInput.safeRead(price, sc);
+		int packageID = menu.createPromotionalPackage(name, price);
+		
+		System.out.println("Choose items you want to add to this package (Enter 1000 when you are done):");
+		menu.viewMenuItem();
+		ArrayList<String> itemIDs = new ArrayList<String>();
+		Integer id = 0;
+		do {
+			id = SafeInput.safeRead(id, sc);
+			if (menu.isValid(id.toString()))
+				itemIDs.add(id.toString());
+		} while (id != 1000);
+		menu.addItemsToPackage(packageID, itemIDs, price);
+		System.out.println("Package created.");
 	}
+
 	/**
 	 * remove existing promotional package
 	 * @param sc - Read input from console
@@ -228,6 +254,7 @@ public class Restaurant {
 		int packageNo = sc.nextInt();
 		menu.removePromotionalPackage(packageNo);
 	}
+
 	/**
 	 * make order
 	 * @param sc - Read input from console
@@ -245,14 +272,13 @@ public class Restaurant {
 				return;
 		}
 		int tableID = -1;
-		
-		System.out.println("Reservation?"
-				+ "\n(1) Yes"
-				+ "\n(2) No");
+
+		System.out.println("Reservation?" + "\n(1) Yes" + "\n(2) No");
 		int opt = 0;
 		opt = SafeInput.safeRead(opt, sc);
-		if (opt == -1) return;
-		switch(opt){
+		if (opt == -1)
+			return;
+		switch (opt) {
 		case 1:
 			System.out.println("Enter contact number used to book");
 			String contact = sc.next();
@@ -276,8 +302,7 @@ public class Restaurant {
 		default:
 			System.out.println("invalid option");
 		}
-		
-		
+
 		System.out.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
 		menu.viewMenuItem();
 		ArrayList<String> itemIDs = new ArrayList<String>();
@@ -291,7 +316,8 @@ public class Restaurant {
 			}
 		} while (itemID != 1000);
 
-		System.out.println("Choose packages from package list (Enter 1000 when you are done. Enter -1 to cancel order):");
+		System.out
+				.println("Choose packages from package list (Enter 1000 when you are done. Enter -1 to cancel order):");
 		menu.viewPackages();
 		ArrayList<Integer> packageIDs = new ArrayList<Integer>();
 		Integer packageID = -1;
@@ -308,9 +334,12 @@ public class Restaurant {
 		tablesManager.setStatus(tableID, TableStatus.occupied);
 		System.out.println("Order has been made.");
 	}
+
 	/**
 	 * view order
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void viewOrder(Scanner sc) {
 		System.out.println("What order (-1 to cancel)");
@@ -319,7 +348,7 @@ public class Restaurant {
 		orderID = SafeInput.safeRead(orderID, sc);
 		if (orderID == -1)
 			return;
-		while(!orderHistory.isValid(orderID)){
+		while (!orderHistory.isValid(orderID)) {
 			System.out.println("Invalid order ID. Try again:");
 			orderID = SafeInput.safeRead(orderID, sc);
 			if (orderID == -1)
@@ -327,29 +356,30 @@ public class Restaurant {
 		}
 		orderHistory.viewOrder(orderID);
 	}
+
 	/**
 	 * add menu items or packages to existing order
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void addToOrder(Scanner sc) {
 		int opt = 0;
 		do {
-			System.out.println("Choose an option:" 
-						+ "\n(1) Add items" 
-						+ "\n(2) Add packages"
-						+ "\n(3) Back");
+			System.out.println("Choose an option:" + "\n(1) Add items" + "\n(2) Add packages" + "\n(3) Back");
 			opt = SafeInput.safeRead(opt, sc);
 		} while (opt > 3 || opt < 1);
 		int orderID = -1;
 		System.out.println("What order?");
 		orderHistory.show();
-		while (!orderHistory.canAdd(orderID)){
+		while (!orderHistory.canAdd(orderID)) {
 			orderID = SafeInput.safeRead(orderID, sc);
 			System.out.println("no order found! Try again");
 		}
 		switch (opt) {
 		case 1:
-			System.out.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
+			System.out
+					.println("Choose items from a la carte (Enter 1000 when you are done. Enter -1 to cancel order):");
 			menu.viewMenuItem();
 			ArrayList<String> itemIDs = new ArrayList<String>();
 			Integer itemID;
@@ -385,19 +415,22 @@ public class Restaurant {
 			System.out.println("Invalid choice");
 		}
 	}
+
 	/**
 	 * remove menu items or packages from existing order
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void removeFromOrder(Scanner sc) {
 		System.out.println("What order?");
 		orderHistory.show();
 		int orderID = -1;
-		while (!orderHistory.isValid(orderID)){
+		while (!orderHistory.isValid(orderID)) {
 			System.out.println("invalid order id! try again");
 			orderID = SafeInput.safeRead(orderID, sc);
 		}
-		
+
 		orderHistory.viewOrder(orderID);
 		System.out.println("Choose items to remove (1000 when finish):");
 		ArrayList<String> items = new ArrayList<String>();
@@ -408,7 +441,7 @@ public class Restaurant {
 				items.add(id.toString());
 		}
 		orderHistory.removeItemFromOrder(orderID, items);
-		
+
 		System.out.println("Choose packages to remove (1000 when finish):");
 		ArrayList<Integer> packages = new ArrayList<Integer>();
 		id = -1;
@@ -419,27 +452,33 @@ public class Restaurant {
 		}
 		orderHistory.removePackagesFromOrder(orderID, packages);
 	}
+
 	/**
 	 * check if a table is available for booking or order
+	 * table ID is unchecked
 	 * @param tableID
 	 * @return
 	 */
 	public boolean tableAvail(int tableID) {
 		Table table = tablesManager.getTable(tableID);
-		ArrayList<Reservation> reservations = 
-				reserve.getReservations(table.getReservationIDs());
+		if (table == null) return false;
+		ArrayList<Reservation> reservations = reserve.getReservations(table.getReservationIDs());
 		return tablesManager.isAvail(tableID, reserve);
 	}
+
 	/**
 	 * show all available tables at the moment to the screen
 	 */
 	public void showAvailableTables() {
 		tablesManager.showAvailableTables(reserve);
 	}
+
 	/**
-	 * print order invoice when payment is made.
-	 * the table associated with this order is released.
-	 * @param sc - Read input from console
+	 * print order invoice when payment is made. the table associated with this
+	 * order is released.
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void printOrderInvoice(Scanner sc) {
 		System.out.println("What order");
@@ -448,10 +487,15 @@ public class Restaurant {
 		orderHistory.printOrderInvoice(orderID);
 		tablesManager.setStatus(orderHistory.getOrder(orderID).getTableID(), TableStatus.vacated);
 	}
+
 	/**
 	 * print total sale revenue within a period specified by opt
-	 * @param sc - Read input from console
-	 * @param opt - whether by date or by month. is checked in upper layer already, can only be either 1 or 2
+	 * 
+	 * @param sc
+	 *            - Read input from console
+	 * @param opt
+	 *            - whether by date or by month. is checked in upper layer
+	 *            already, can only be either 1 or 2
 	 */
 	public void printSaleRevenue(Scanner sc, int opt) {
 		switch (opt) {
@@ -481,9 +525,12 @@ public class Restaurant {
 			break;
 		}
 	}
+
 	/**
 	 * create new reservation
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void createReservation(Scanner sc) {
 		updateReservation();
@@ -493,7 +540,7 @@ public class Restaurant {
 		Date arrTime = new Date();
 		LocalDateTime arrivalTime;
 		sc.nextLine();
-		do{
+		do {
 			System.out.println("Enter arrival time (dd/MM/yy HH:mm):");
 			arrTime = SafeInput.safeRead(arrTime, sc, formatter);
 			arrivalTime = LocalDateTime.ofInstant(arrTime.toInstant(), ZoneId.systemDefault());
@@ -505,22 +552,26 @@ public class Restaurant {
 		if (reservation != null) {
 			tablesManager.reserve(reservation.getTableID(), reservation.getID());
 			System.out.println("Reserve successfully!");
-		}else
-		System.out.println("Do not have enough seats!");
+		} else
+			System.out.println("Do not have enough seats!");
 	}
+
 	/**
-	 * update the reservations by removing all out-dated reservations
-	 * release all tables associated
+	 * update the reservations by removing all out-dated reservations release
+	 * all tables associated
 	 */
-	public void updateReservation(){
+	public void updateReservation() {
 		TreeMap<Integer, String> tableRelease = reserve.updateReservation();
-		for (Integer id:tableRelease.keySet()){
+		for (Integer id : tableRelease.keySet()) {
 			tablesManager.release(id, tableRelease.get(id));
 		}
 	}
+
 	/**
 	 * check if a reservation exist
-	 * @param sc - Read input from console
+	 * 
+	 * @param sc
+	 *            - Read input from console
 	 */
 	public void checkReservation(Scanner sc) {
 		updateReservation();
@@ -532,9 +583,10 @@ public class Restaurant {
 		else
 			System.out.println(reservation);
 	}
+
 	/**
-	 * remove existing reservation
-	 * release the table associated with it
+	 * remove existing reservation release the table associated with it
+	 * 
 	 * @param sc
 	 */
 	public void removeReservation(Scanner sc) {
@@ -549,15 +601,17 @@ public class Restaurant {
 		}
 		System.out.println("Reservation removed successfully!");
 	}
+
 	/**
-	 * remove an existing reservation
-	 * release the table associated with it
+	 * remove an existing reservation release the table associated with it
+	 * 
 	 * @param reservation
 	 */
 	public void removeReservation(Reservation reservation) {
 		int releasedTable = reserve.removeReservation(reservation.getContact());
 		tablesManager.release(releasedTable, reservation.getID());
 	}
+
 	/**
 	 * save data back to files
 	 */
