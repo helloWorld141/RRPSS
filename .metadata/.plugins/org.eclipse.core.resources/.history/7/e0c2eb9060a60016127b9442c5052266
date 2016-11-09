@@ -494,11 +494,8 @@ public class Restaurant {
 	public void showAvailableTables() {
 		tablesManager.showAvailableTables(reserve);
 	}
-	/**
-	 * show all tables and its status at the moment
-	 */
 	public void showAllTables(){
-		System.out.println(tablesManager.getAllTables());
+		System.out.println();
 	}
 	/**
 	 * print order invoice when payment is made. the table associated with this
@@ -586,7 +583,7 @@ public class Restaurant {
 				tablesManager.getAvailTables(reserve));
 		if (reservation != null) {
 			tablesManager.reserve(reservation.getTableID(), reservation.getID());
-			System.out.println("Reserve table " + reservation.getTableID() +" successfully!");
+			System.out.println("Reserve successfully!");
 		} else
 			System.out.println("Do not have enough seats!");
 	}
@@ -633,9 +630,8 @@ public class Restaurant {
 		else {
 			int releasedTable = reserve.removeReservation(reservation.getContact());
 			tablesManager.release(releasedTable, reservation.getID());
-			System.out.println("Reservation removed successfully!");
 		}
-
+		System.out.println("Reservation removed successfully!");
 	}
 
 	/**

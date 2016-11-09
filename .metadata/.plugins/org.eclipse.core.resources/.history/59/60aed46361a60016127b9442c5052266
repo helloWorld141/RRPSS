@@ -633,9 +633,8 @@ public class Restaurant {
 		else {
 			int releasedTable = reserve.removeReservation(reservation.getContact());
 			tablesManager.release(releasedTable, reservation.getID());
-			System.out.println("Reservation removed successfully!");
 		}
-
+		System.out.println("Reservation removed successfully!");
 	}
 
 	/**

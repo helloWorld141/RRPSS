@@ -57,7 +57,7 @@ public class RestaurantApp {
 				myRestaurant.showAvailableTables();
 				break;
 			case 12:
-				myRestaurant.showAllTables();
+				myRestaurant.showTableAvailability();
 				break;
 			case 13:
 				myRestaurant.cleanUp();

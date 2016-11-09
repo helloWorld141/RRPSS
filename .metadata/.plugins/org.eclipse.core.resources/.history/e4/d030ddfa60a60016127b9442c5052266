@@ -54,10 +54,7 @@ public class TablesManager {
 	public void showAvailableTables(Reserve reserve) {
 		System.out.println("    Table Number | Seat Capacity | Status\n "+getAvailTables(reserve));
 	}
-	/**
-	 * get all the tables
-	 * @return
-	 */
+	
 	public ArrayList<Table> getAllTables(){
 		return this.tableList;
 	}

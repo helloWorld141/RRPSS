@@ -57,12 +57,9 @@ public class RestaurantApp {
 				myRestaurant.showAvailableTables();
 				break;
 			case 12:
-				myRestaurant.showAllTables();
-				break;
-			case 13:
 				myRestaurant.cleanUp();
 				break;
-			case 14:
+			case 13:
 				myRestaurant.cleanUp();
 				return;
 			default:
@@ -84,10 +81,9 @@ public class RestaurantApp {
 				+ "\n(8) Create new reservation" 
 				+ "\n(9) Cancel reservation"
 				+ "\n(10) Check reservation" 
-				+ "\n(11) Show available tables"
-				+ "\n(12) Show tables availability" 
-				+ "\n(13) Save data" 
-				+ "\n(14) Exit");
+				+ "\n(11) Show available tables" 
+				+ "\n(12) Save data" 
+				+ "\n(13) Exit");
 		return true;
 	}
 
