@@ -260,7 +260,7 @@ public class Restaurant {
 	 * @param sc - Read input from console
 	 */
 	public void createNewOrder(Scanner sc) {
-		if (TimeHandler.whatSession(LocalDateTime.now().toLocalTime()) == null){
+		if (TimeHandler.whatSession(LocalDateTime.now()) == null){
 			System.out.println("We are not operating now!");
 			//return;
 		}
